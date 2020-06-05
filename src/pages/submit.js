@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { ReCaptcha } from 'react-recaptcha-google'
 // import { Link } from "gatsby"
-import { Form, Input, Button, Select, Modal } from "antd";
+import { Form, Input, Button, Select, Modal, Result } from "antd";
 import firebase from 'firebase';
 import "./index.css"
 
 import SEO from "../components/seo"
 import Header from "../components/header"
 import { navigate } from "@reach/router";
+import { NoFragmentCycles } from 'graphql/validation/rules/NoFragmentCycles';
 
 function SubmitPage() {
   const states = ["All States", "CA", "WA", "NY"]
@@ -16,11 +18,25 @@ function SubmitPage() {
 
   const onFinish = values => {
     console.log("Success:", values)
-    values['verified'] = false;
+    const data = {
+      title: values.title,
+      state: values.state,
+      city: values.city,
+      topic: values.topic,
+      creatorEmail: values.creatorEmail,
+      recipient: values.recipient,
+      recipientEmail: values.recipientEmail,
+      subject: values.subject,
+      body: values.body,
+      verified: false
+    }
+    if (values['creatorName'] !== undefined) {
+      data['creatorName'] = values.creatorName
+    }
     firebase
       .firestore()
       .collection("data")
-      .add(values)
+      .add(data)
       .then(() => {
         setSubmitSuccess(true)
         console.log("success")
@@ -30,9 +46,6 @@ function SubmitPage() {
       });
   }
 
-  // function onChange(value) {
-  //   console.log(value)
-  // }
 
   // function success() {
   //   Modal.success({
@@ -44,7 +57,13 @@ function SubmitPage() {
   
   function handleCancel() {
     setSubmitSuccess(false)
+    window.location.reload(false)
   };
+
+  function handleOK() {
+    setSubmitSuccess(false)
+    navigate('/')
+  }
 
   function error() {
     Modal.error({
@@ -59,11 +78,11 @@ function SubmitPage() {
       <Modal
           visible={submitSuccess}
           title='Thank you! Your template has been submitted for review!'
-          onOK={ () => navigate('/')}
+          onOK={ () => handleOK()}
           onCancel={() => handleCancel()}
           okText="Back To Home"
           cancelText="Submit Another Template"
-          // footer={[
+          // extra={[
           //   <Button key="back" onClick={() => navigate('/')}>
           //     Back to Home
           //   </Button>,
@@ -71,7 +90,7 @@ function SubmitPage() {
           //     Submit Another Template
           //   </Button>,
           // ]}
-          closeable="false"
+          // />,
           destroyOnClose
         >
         <p>You will be notified via the provided email when it has been verified and uploaded.</p>
@@ -145,11 +164,10 @@ function SubmitPage() {
           </Select>
         </Form.Item>
         <Form.Item
-          label="Author Name"
-          name="authorName"
+          label="Creator Name"
+          name="creatorName"
           rules={[
             {
-              required: true,
               message: "Please enter your name!",
             },
           ]}
@@ -157,8 +175,8 @@ function SubmitPage() {
         <Input />
         </Form.Item>
         <Form.Item
-          label="Author Email"
-          name="authorEmail"
+          label="Creator Email"
+          name="creatorEmail"
           rules={[
             {
               required: true,
