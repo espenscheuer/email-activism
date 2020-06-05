@@ -1,7 +1,7 @@
 import React from "react";
 // import { Link } from "gatsby"
 import { Form, Input, Button, Select } from "antd";
-import firebase from 'firebase';
+import firebase from 'gatsby-plugin-firebase';
 
 import "./index.css";
 
