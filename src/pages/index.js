@@ -26,6 +26,7 @@ function IndexPage() {
       setFiltered(emails)
     }
   }
+  /*
   function handleCityChange(e) {
     if (!e.includes("All Cities")) {
       const tempCities = []
@@ -40,11 +41,12 @@ function IndexPage() {
       setFiltered(emails)
     }
   }
+  */
   function handleTopicChange(e) {
     if (!e.includes("All Topics")) {
       const tempTopics = []
       emails.forEach(element => {
-        if (element.city === e) {
+        if (element.topic === e) {
           tempTopics.push(element)
         }
       })
@@ -59,7 +61,7 @@ function IndexPage() {
   const [emails, setEmails] = useState([])
   const [loading, setLoading] = useState(false)
   const [states, setStates] = useState([])
-  const [cities, setCities] = useState([])
+  //const [cities, setCities] = useState([])
   const [topics, setTopics] = useState([])
 
   useEffect(() => {
@@ -83,26 +85,26 @@ function IndexPage() {
               subject: email.data().subject,
               body: email.data().body,
               state: email.data().state,
-              city: email.data().city,
+              //city: email.data().city,
               topic: email.data().topic,
             })
           })
           const currStates = ["All States"]
-          const currCities = ["All Cities"]
+          //const currCities = ["All Cities"]
           const currTopics = ["All Topics"]
           allEmails.forEach(element => {
             if (!currStates.includes(element.state)) {
               currStates.push(element.state)
             }
-            if (!currCities.includes(element.city)) {
-              currCities.push(element.city)
-            }
+            //if (!currCities.includes(element.city)) {
+            //  currCities.push(element.city)
+            //}
             if (!currTopics.includes(element.topics)) {
               currTopics.push(element.topic)
             }
           })
           setStates(currStates)
-          setCities(currCities)
+          //setCities(currCities)
           setTopics(currTopics)
           setFiltered(allEmails)
           setEmails(allEmails)
@@ -126,11 +128,12 @@ function IndexPage() {
                 <p style={{ margin: 20, marginBottom: 0 }}>
                   {" "}
                   Here you can find a list of email templates submitted by the
-                  community. You can filter them by state, city, or topic. If
-                  the send email link doesn't work just copy the recipient and
-                  body by clicking on it. If you have your own template or
-                  found one you would like to submit head over to the submit
-                  tab in the upper right. {" "}
+                  community. You can filter them by state, or topic. If you
+                  don't see a topic that is important to you please reach out.
+                  If the send email link doesn't work just copy the recipient
+                  and body by clicking on it. If you have your own template or
+                  found one you would like to submit head over to the submit tab
+                  in the upper right.{" "}
                 </p>
                 <Select
                   mode="single"
@@ -149,6 +152,7 @@ function IndexPage() {
                     <Select.Option value={item}>{item}</Select.Option>
                   ))}
                 </Select>
+                {/*
                 <Select
                   mode="single"
                   style={{ width: "20%", minWidth: 100, marginRight: 20 }}
@@ -160,6 +164,7 @@ function IndexPage() {
                     <Select.Option value={item}>{item}</Select.Option>
                   ))}
                 </Select>
+                */}
                 <Select
                   mode="single"
                   style={{ width: "20%", minWidth: 100, marginRight: 20 }}
