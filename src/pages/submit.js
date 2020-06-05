@@ -1,7 +1,7 @@
 import React from "react"
 // import { Link } from "gatsby"
-import { Form, Input, Button, Select } from "antd"
-import firebase from "gatsby-plugin-firebase"
+import { Form, Input, Button, Select } from "antd";
+import firebase from 'firebase';
 
 import "./index.css"
 
@@ -15,6 +15,7 @@ function SubmitPage() {
 
   const onFinish = values => {
     console.log("Success:", values)
+    values['verified'] = false;
     firebase
       .firestore()
       .collection("data")
@@ -101,7 +102,32 @@ function SubmitPage() {
           </Select>
         </Form.Item>
         <Form.Item
-          label="Recipient"
+          label="Author Name"
+          name="authorName"
+          rules={[
+            {
+              required: true,
+              message: "Please enter your name!",
+            },
+          ]}
+        >
+        <Input />
+        </Form.Item>
+        <Form.Item
+          label="Author Email"
+          name="authorEmail"
+          rules={[
+            {
+              required: true,
+              type: 'email',
+              message: "Please enter your email!",
+            },
+          ]}
+        >
+        <Input />
+        </Form.Item>
+        <Form.Item
+          label="Recipient Name"
           name="recipient"
           rules={[
             {
@@ -118,7 +144,8 @@ function SubmitPage() {
           rules={[
             {
               required: true,
-              message: "Please input a email for your emails recipient!",
+              type: 'email',
+              message: "Please input a email for the recipient!",
             },
           ]}
         >
