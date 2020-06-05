@@ -1,6 +1,6 @@
 import React from "react"
 // import { Link } from "gatsby"
-import { Form, Input, Button, Select } from "antd";
+import { Form, Input, Button, Select, Modal } from "antd";
 import firebase from 'firebase';
 
 import "./index.css"
@@ -21,13 +21,29 @@ function SubmitPage() {
       .collection("data")
       .add(values)
       .then(() => {
+        success()
         console.log("success")
       })
+      .catch((e) => {
+        error()
+      });
   }
 
   // function onChange(value) {
   //   console.log(value)
   // }
+
+  function success() {
+    Modal.success({
+      content: 'Thank you! Your template has been submitted for review! You will be notified via the provided email when it has been verified and uploaded.',
+    });
+  }
+
+  function error() {
+    Modal.error({
+      content: 'Sorry, an error occurred. Your template could not be submitted.',
+    });
+  }
 
   return (
     <>
