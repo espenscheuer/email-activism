@@ -16,6 +16,22 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
+			resolve: 'gatsby-plugin-firebase',
+			options: {
+        
+				credentials: {
+            apiKey: "AIzaSyCmKU0aKI0FVWWK9Anfs7i-Q-e2nESnA60",
+            authDomain: "email-activism.firebaseapp.com",
+            databaseURL: "https://email-activism.firebaseio.com",
+            projectId: "email-activism",
+            storageBucket: "email-activism.appspot.com",
+            messagingSenderId: "214796221770",
+            appId: "1:214796221770:web:1af130f00dc0d4c5bb15b3",
+            measurementId: "G-2H7KXQKCH6"
+				},
+			},
+		},
+    {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `gatsby-starter-default`,

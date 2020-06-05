@@ -1,10 +1,11 @@
-import React from "react"
-import { Link } from "gatsby"
-import { Form, Input, Button, Select } from "antd"
+import React from "react";
+// import { Link } from "gatsby"
+import { Form, Input, Button, Select } from "antd";
+import firebase from 'firebase';
 
-import "./index.css"
+import "./index.css";
 
-import Header from "../components/header"
+import Header from "../components/header";
 
 function SubmitPage() {
   const states = ["All States", "CA", "WA", "NY"]
@@ -13,10 +14,18 @@ function SubmitPage() {
 
   const onFinish = values => {
     console.log("Success:", values)
+    firebase
+			.firestore()
+			.collection('data')
+			.add(values)
+			.then(() => {
+        console.log("success")
+			});
   }
-  function onChange(value) {
-    console.log(value)
-  }
+
+  // function onChange(value) {
+  //   console.log(value)
+  // }
 
   return (
     <>
