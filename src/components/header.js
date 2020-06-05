@@ -1,42 +1,42 @@
-import { Link } from "gatsby"
-import PropTypes from "prop-types"
+import { Link, navigate } from "gatsby"
 import React from "react"
+import { PageHeader, Button } from "antd"
+import "antd/dist/antd.css"
 
-const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
-    }}
-  >
+function Header({ name }) {
+  const title = (
     <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
+      style={{ cursor: "pointer" }}
+      onClick={() => {
+        navigate("/")
       }}
     >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
+      <h3> Email Activism </h3>
+    </div>
+  )
+  return (
+    <PageHeader
+      style ={{paddingBottom:10}}
+      className="site-page-header"
+      title={title}
+      extra={[
+        <Button
+          onClick={() => {
+            navigate("/about")
           }}
         >
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
-  </header>
-)
-
-Header.propTypes = {
-  siteTitle: PropTypes.string,
-}
-
-Header.defaultProps = {
-  siteTitle: ``,
+          About
+        </Button>,
+        <Button
+          onClick={() => {
+            navigate("/submit")
+          }}
+        >
+          Submit
+        </Button>,  
+      ]}
+    />
+  )
 }
 
 export default Header
