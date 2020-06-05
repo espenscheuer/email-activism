@@ -1,9 +1,9 @@
-import { Link, navigate } from "gatsby"
+import { navigate } from "gatsby"
 import React from "react"
 import { PageHeader, Button } from "antd"
 import "antd/dist/antd.css"
 
-function Header({ name }) {
+function Header() {
   const title = (
     <div
       style={{ cursor: "pointer" }}
@@ -11,7 +11,7 @@ function Header({ name }) {
         navigate("/")
       }}
     >
-      <h3> Email Activism </h3>
+      <h3> Emails For Change </h3>
     </div>
   )
   return (
@@ -32,7 +32,7 @@ function Header({ name }) {
             navigate("/submit")
           }}
         >
-          Submit
+          Submit Template
         </Button>,  
       ]}
     />

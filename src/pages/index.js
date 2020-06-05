@@ -1,8 +1,10 @@
-import React from "react"
+import React, {useState, useEffect} from "react"
 import "./index.css"
-import { Select, Option, Collapse } from "antd"
+import { Select, Collapse } from "antd"
 
+import SEO from "../components/seo"
 import Header from "../components/header"
+import firebase from "gatsby-plugin-firebase"
 
 function IndexPage() {
   const { Panel } = Collapse
@@ -19,6 +21,42 @@ function IndexPage() {
   function callback(key) {
     console.log(key)
   }
+
+  const [emails, setEmail] = useState([])
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+
+		// Since firebase runs async, only update state if the app is mounted
+		setLoading(true)
+			const getEmails = () => {
+				firebase
+					.firestore()
+					.collection('data')
+          .get()
+          .where('verified', '==', true)
+					.then((querySnapshot) => {
+						const allEmails = [];
+						querySnapshot.forEach((email) => {
+							allEmails.push({
+                title: email.data().title,
+                recipient: email.data().email,
+                recipientEmail: email.data().recipientEmail,
+                subject: email.data().subject,
+                body: email.data().body,
+                state: email.data.state,
+                city: email.data().city,
+                topic: email.data().topic
+                        
+							});
+            });
+            setEmail(allEmails)
+					});
+    }
+    getEmails();
+    setLoading(false)
+	}, []);
+
 
   const states = ["All States", "CA", "WA", "NY"]
   const cities = ["All Cities", "Seattle", "Washington", "New York"]
@@ -38,7 +76,8 @@ function IndexPage() {
 
   return (
     <>
-      <Header name="Find Causes" />
+      <SEO title="Find Causes" />
+      <Header />
       <div>
         <Select
           mode="multiple"
@@ -48,8 +87,8 @@ function IndexPage() {
           onChange={handleStateChange}
         >
           {states.map(item => (
-              <Select.Option value={item}>{item}</Select.Option>
-            ))}
+            <Select.Option value={item}>{item}</Select.Option>
+          ))}
         </Select>
         <Select
           mode="multiple"
@@ -59,8 +98,8 @@ function IndexPage() {
           onChange={handleCityChange}
         >
           {cities.map(item => (
-              <Select.Option value={item}>{item}</Select.Option>
-            ))}
+            <Select.Option value={item}>{item}</Select.Option>
+          ))}
         </Select>
         <Select
           mode="multiple"
@@ -70,21 +109,25 @@ function IndexPage() {
           onChange={handleTopicChange}
         >
           {topics.map(item => (
-              <Select.Option value={item}>{item}</Select.Option>
-            ))}
+            <Select.Option value={item}>{item}</Select.Option>
+          ))}
         </Select>
       </div>
       <div>
         <Collapse onChange={callback} style={{ marginTop: 20 }}>
           {templates.map((item, index) => (
             <Panel header={item.title} key={index}>
-                <div>
-                  <p>Recipient: {item.recipient}</p>
-                  <p>Email: {item.recipientEmail}</p>
-                  <p>Subject: {item.subject}</p>
-                  <p>Body: {item.body}</p>
-                  <a href={`mailto:${item.recipientEmail}?subject=${item.recipientEmail}&body=${item.body}`}>Send Email!</a>
-                </div>
+              <div>
+                <p>Recipient: {item.recipient}</p>
+                <p>Email: {item.recipientEmail}</p>
+                <p>Subject: {item.subject}</p>
+                <p>Body: {item.body}</p>
+                <a
+                  href={`mailto:${item.recipientEmail}?subject=${item.recipientEmail}&body=${item.body}`}
+                >
+                  Send Email!
+                </a>
+              </div>
             </Panel>
           ))}
         </Collapse>

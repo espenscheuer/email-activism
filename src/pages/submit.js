@@ -1,11 +1,12 @@
-import React from "react";
+import React from "react"
 // import { Link } from "gatsby"
-import { Form, Input, Button, Select } from "antd";
-import firebase from 'gatsby-plugin-firebase';
+import { Form, Input, Button, Select } from "antd"
+import firebase from "gatsby-plugin-firebase"
 
-import "./index.css";
+import "./index.css"
 
-import Header from "../components/header";
+import SEO from "../components/seo"
+import Header from "../components/header"
 
 function SubmitPage() {
   const states = ["All States", "CA", "WA", "NY"]
@@ -15,12 +16,12 @@ function SubmitPage() {
   const onFinish = values => {
     console.log("Success:", values)
     firebase
-			.firestore()
-			.collection('data')
-			.add(values)
-			.then(() => {
+      .firestore()
+      .collection("data")
+      .add(values)
+      .then(() => {
         console.log("success")
-			});
+      })
   }
 
   // function onChange(value) {
@@ -29,9 +30,10 @@ function SubmitPage() {
 
   return (
     <>
+      <SEO title="Submit" />
       <Header name="Submit" />
       <Form
-        style={{ marginTop: 20, width : "40%", marginLeft : 20}}
+        style={{ marginTop: 20, width: "40%", marginLeft: 20 }}
         name="basic"
         initialValues={{
           remember: true,
@@ -77,7 +79,7 @@ function SubmitPage() {
           ]}
         >
           <Select>
-            {states.map(item => (
+            {cities.map(item => (
               <Select.Option value={item}>{item}</Select.Option>
             ))}
           </Select>
@@ -93,7 +95,7 @@ function SubmitPage() {
           ]}
         >
           <Select>
-            {states.map(item => (
+            {topics.map(item => (
               <Select.Option value={item}>{item}</Select.Option>
             ))}
           </Select>
