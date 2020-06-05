@@ -1,17 +1,18 @@
-import React from "react"
+import React, { useEffect, useState } from 'react';
 // import { Link } from "gatsby"
 import { Form, Input, Button, Select, Modal } from "antd";
 import firebase from 'firebase';
-
 import "./index.css"
 
 import SEO from "../components/seo"
 import Header from "../components/header"
+import { navigate } from "@reach/router";
 
 function SubmitPage() {
   const states = ["All States", "CA", "WA", "NY"]
   const cities = ["All Cities", "Seattle", "Washington", "New York"]
   const topics = ["All", "Black Lives Matter"]
+  const [submitSuccess, setSubmitSuccess] = useState(false)
 
   const onFinish = values => {
     console.log("Success:", values)
@@ -21,7 +22,7 @@ function SubmitPage() {
       .collection("data")
       .add(values)
       .then(() => {
-        success()
+        setSubmitSuccess(true)
         console.log("success")
       })
       .catch((e) => {
@@ -33,11 +34,17 @@ function SubmitPage() {
   //   console.log(value)
   // }
 
-  function success() {
-    Modal.success({
-      content: 'Thank you! Your template has been submitted for review! You will be notified via the provided email when it has been verified and uploaded.',
-    });
-  }
+  // function success() {
+  //   Modal.success({
+  //     title: 'Thank you! Your template has been submitted for review!',
+  //     content: 'You will be notified via the provided email when it has been verified and uploaded.',
+  //     onOK() {navigate('/')},
+  //   });
+  // }
+  
+  function handleCancel() {
+    setSubmitSuccess(false)
+  };
 
   function error() {
     Modal.error({
@@ -49,6 +56,26 @@ function SubmitPage() {
     <>
       <SEO title="Submit" />
       <Header name="Submit" />
+      <Modal
+          visible={submitSuccess}
+          title='Thank you! Your template has been submitted for review!'
+          onOK={ () => navigate('/')}
+          onCancel={() => handleCancel()}
+          okText="Back To Home"
+          cancelText="Submit Another Template"
+          // footer={[
+          //   <Button key="back" onClick={() => navigate('/')}>
+          //     Back to Home
+          //   </Button>,
+          //   <Button key="submi" onClick={() => handleCancel()}>
+          //     Submit Another Template
+          //   </Button>,
+          // ]}
+          closeable="false"
+          destroyOnClose
+        >
+        <p>You will be notified via the provided email when it has been verified and uploaded.</p>
+        </Modal>
       <Form
         style={{ marginTop: 20, width: "40%", marginLeft: 20 }}
         name="basic"
