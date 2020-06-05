@@ -15,6 +15,7 @@ function SubmitPage() {
   const cities = ["All Cities", "Seattle", "Washington", "New York"]
   const topics = ["All", "Black Lives Matter"]
   const [submitSuccess, setSubmitSuccess] = useState(false)
+  const [submitError, setSubmitError] = useState(false)
 
   const onFinish = values => {
     console.log("Success:", values)
@@ -42,26 +43,18 @@ function SubmitPage() {
         console.log("success")
       })
       .catch((e) => {
-        error()
+        setSubmitError(true)
       });
   }
-
-
-  // function success() {
-  //   Modal.success({
-  //     title: 'Thank you! Your template has been submitted for review!',
-  //     content: 'You will be notified via the provided email when it has been verified and uploaded.',
-  //     onOK() {navigate('/')},
-  //   });
-  // }
   
   function handleCancel() {
     setSubmitSuccess(false)
-    window.location.reload(false)
+    setSubmitError(false)
   };
 
   function handleOK() {
     setSubmitSuccess(false)
+    setSubmitError(false)
     navigate('/')
   }
 
@@ -75,26 +68,37 @@ function SubmitPage() {
     <>
       <SEO title="Submit" />
       <Header name="Submit" />
-      <Modal
-          visible={submitSuccess}
+      {submitSuccess && !submitError &&
+        <Result
+          status="success"
           title='Thank you! Your template has been submitted for review!'
-          onOK={ () => handleOK()}
-          onCancel={() => handleCancel()}
-          okText="Back To Home"
-          cancelText="Submit Another Template"
-          // extra={[
-          //   <Button key="back" onClick={() => navigate('/')}>
-          //     Back to Home
-          //   </Button>,
-          //   <Button key="submi" onClick={() => handleCancel()}>
-          //     Submit Another Template
-          //   </Button>,
-          // ]}
-          // />,
-          destroyOnClose
-        >
-        <p>You will be notified via the provided email when it has been verified and uploaded.</p>
-        </Modal>
+          subTitle='You will be notified via the provided email when it has been verified and uploaded'
+          extra={[
+            <Button key="back" onClick={() => navigate('/')}>
+              Back to Home
+            </Button>,
+            <Button key="submit" onClick={() => handleCancel()}>
+              Submit Another Template
+            </Button>,
+          ]}
+        />
+      }
+      {submitError &&
+        <Result
+          status="500"
+          title='Sorry, something went wrong.'
+          subTitle='Your template could not be submitted.'
+          extra={[
+            <Button key="back" onClick={() => navigate('/')}>
+              Back to Home
+            </Button>,
+            <Button key="submit" onClick={() => handleCancel()}>
+               Try Again
+            </Button>,
+          ]}
+        />
+      }
+      { !submitSuccess && !submitError &&
       <Form
         style={{ marginTop: 20, width: "40%", marginLeft: 20 }}
         name="basic"
@@ -243,6 +247,7 @@ function SubmitPage() {
           </Button>
         </Form.Item>
       </Form>
+    }
     </>
   )
 }
