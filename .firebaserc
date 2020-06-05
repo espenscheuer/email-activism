@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "email-activism"
+    "default": "email-activism",
+    "production": "prod-email-activism",
   }
 }
