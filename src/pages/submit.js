@@ -101,7 +101,7 @@ function SubmitPage() {
         </Form.Item>
         <Form.Item
           label="Author Name"
-          name="author-name"
+          name="authorName"
           rules={[
             {
               required: true,
@@ -113,7 +113,7 @@ function SubmitPage() {
         </Form.Item>
         <Form.Item
           label="Author Email"
-          name="author-email"
+          name="authorEmail"
           rules={[
             {
               required: true,
