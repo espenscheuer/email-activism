@@ -329,7 +329,7 @@ function SubmitPage() {
                   },
                 ]}
               >
-                <TextArea />
+                <TextArea rows={4} />
               </Form.Item>
 
               <Form.Item {...tailLayout}>
