@@ -226,7 +226,7 @@ function IndexPage() {
                         )}
 
                         <a
-                          href={`mailto:${item.recipientEmail}?subject=${item.recipientEmail}&body=${item.body}`}
+                          href={`mailto:${item.recipientEmail}?subject=${item.subject}&body=${item.body}`}
                         >
                           Send Email!
                         </a>
