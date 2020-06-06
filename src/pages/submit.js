@@ -97,20 +97,27 @@ function SubmitPage() {
 
   const onFinish = values => {
     console.log("Success:", values)
-    const data = {
-      title: values.title,
-      state: values.state,
-      // city: values.city,
-      topic: values.topic,
-      creatorEmail: values.creatorEmail,
-      recipient: values.recipient,
-      recipientEmail: values.recipientEmail,
-      subject: values.subject,
-      body: values.body,
-      verified: false,
+    let copy = values
+    if(!values.creatorName) {
+        copy.creatorName = ''
     }
-    if (values["creatorName"] !== undefined) {
-      data["creatorName"] = values.creatorName
+    if(!values.state) {
+        copy.state ='All States'
+    }
+    if(!values.topic) {
+        copy.topic ='All Topics'
+    }
+    const data = {
+      title: copy.title,
+      state: copy.state,
+      // city: copy.city,
+      topic: copy.topic,
+      creatorEmail: copy.creatorEmail,
+      recipient: copy.recipient,
+      recipientEmail: copy.recipientEmail,
+      subject: copy.subject,
+      body: copy.body,
+      verified: false,
     }
     firebase
       .firestore()
