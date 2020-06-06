@@ -16,11 +16,11 @@ function SubmitPage() {
   console.log(CountryRegionData[234])
   const { TextArea } = Input
   const layout = {
-    labelCol: { span: 3 },
+    labelCol: { span: 5 },
     wrapperCol: { span: 21 },
   }
   const tailLayout = {
-    wrapperCol: { offset: 3, span: 16 },
+    wrapperCol: { offset: 5, span: 16 },
   }
 
   const states = [
