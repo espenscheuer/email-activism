@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import "./index.css"
-import { Select, Collapse, Spin, message, Row, Col } from "antd"
+import { Select, Collapse, Spin, message, Row, Col, Button } from "antd"
 
 import { CopyOutlined } from "@ant-design/icons"
 
@@ -228,7 +228,9 @@ function IndexPage() {
                         <a
                           href={`mailto:${item.recipientEmail}?subject=${item.subject}&body=${item.body}`}
                         >
-                          Send Email!
+                          <Button type = "primary"> 
+                            Send Email
+                          </Button>
                         </a>
                       </div>
                     </Panel>
