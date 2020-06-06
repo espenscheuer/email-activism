@@ -107,6 +107,7 @@ function SubmitPage() {
     if(!values.topic) {
         copy.topic ='All Topics'
     }
+    
     const data = {
       title: copy.title,
       state: copy.state,
