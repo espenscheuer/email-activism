@@ -93,19 +93,15 @@ function IndexPage() {
           //const currCities = ["All Cities"]
           const currTopics = ["All Topics"]
           allEmails.forEach(element => {
-            if (!currStates.includes(element.state)) {
               currStates.push(element.state)
-            }
             //if (!currCities.includes(element.city)) {
             //  currCities.push(element.city)
             //}
-            if (!currTopics.includes(element.topics)) {
               currTopics.push(element.topic)
-            }
           })
-          setStates(currStates)
+          setStates([...new Set(currStates)])
           //setCities(currCities)
-          setTopics(currTopics)
+          setTopics([...new Set(currTopics)])
           setFiltered(allEmails)
           setEmails(allEmails)
         })
@@ -149,7 +145,7 @@ function IndexPage() {
                   onChange={handleStateChange}
                 >
                   {states.map(item => (
-                    <Select.Option value={item}>{item}</Select.Option>
+                    <Select.Option key={item} value={item}>{item}</Select.Option>
                   ))}
                 </Select>
                 {/*
@@ -173,7 +169,7 @@ function IndexPage() {
                   onChange={handleTopicChange}
                 >
                   {topics.map(item => (
-                    <Select.Option value={item}>{item}</Select.Option>
+                    <Select.Option key={item} value={item}>{item}</Select.Option>
                   ))}
                 </Select>
               </div>
