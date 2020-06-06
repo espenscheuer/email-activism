@@ -213,7 +213,7 @@ function IndexPage() {
                           <CopyOutlined />
                         </p>
                         <p
-                          style={{ cursor: "pointer", whiteSpace : "pre" }}
+                          style={{ cursor: "pointer", whiteSpace : "pre-line" }}
                           onClick={() => {
                             navigator.clipboard.writeText(item.body)
                             message.success("body copied!")
