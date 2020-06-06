@@ -182,8 +182,8 @@ function IndexPage() {
                   {filtered.map((item, index) => (
                     <Panel header={item.title} key={index}>
                       <div>
-                        <p>Recipient: {item.recipient}</p>
-                        <p>Topic: {item.topic}</p>
+                        <p><b>Recipient:</b> {item.recipient}</p>
+                        <p><b>Topic:</b> {item.topic}</p>
                         <p
                           style={{ cursor: "pointer" }}
                           onClick={() => {
@@ -191,7 +191,7 @@ function IndexPage() {
                             message.success("email copied!")
                           }}
                         >
-                          Email: {item.recipientEmail} <CopyOutlined />
+                          <b>Email:</b> {item.recipientEmail} <CopyOutlined />
                         </p>
                         <p
                           style={{ cursor: "pointer" }}
@@ -200,7 +200,7 @@ function IndexPage() {
                             message.success("subject copied")
                           }}
                         >
-                          Subject: {item.subject} <CopyOutlined />
+                          <b>Subject:</b> {item.subject} <CopyOutlined />
                         </p>
                         <p
                           style={{ cursor: "pointer" }}
@@ -209,7 +209,7 @@ function IndexPage() {
                             message.success("body copied!")
                           }}
                         >
-                          Body don't forget to replace the [x] with your info{" "}
+                          <b>Body</b> don't forget to replace the [x] with your info{" "}
                           <CopyOutlined />
                         </p>
                         <p
