@@ -87,7 +87,6 @@ function SubmitPage() {
   ]
   const cities = ["All Cities", "Seattle", "Washington", "New York"]
   const topics = [
-    "All Topics",
     "Defund/Demiltarize Police",
     "Elected Officials Requests",
     "Recognition of Past Violence",
@@ -105,7 +104,7 @@ function SubmitPage() {
         copy.state ='All States'
     }
     if(!values.topic) {
-        copy.topic ='All Topics'
+        copy.topic ="All Topics"
     }
     
     const data = {
