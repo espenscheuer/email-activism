@@ -207,7 +207,6 @@ function SubmitPage() {
                 name="state"
                 rules={[
                   {
-                    required: true,
                     message: "Please enter the relavent U.S. State or All",
                   },
                 ]}
@@ -241,7 +240,6 @@ function SubmitPage() {
                 name="topic"
                 rules={[
                   {
-                    required: true,
                     message: "Please select the relavent topic",
                   },
                 ]}
