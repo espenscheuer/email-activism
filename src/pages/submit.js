@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { ReCaptcha } from "react-recaptcha-google"
 // import { Link } from "gatsby"
 import { Form, Row, Col, Input, Button, Select, Modal, Result } from "antd"
-import firebase from "firebase"
+import firebase from "gatsby-plugin-firebase"
 import "./index.css"
 
 import SEO from "../components/seo"
@@ -100,7 +100,7 @@ function SubmitPage() {
     const data = {
       title: values.title,
       state: values.state,
-      city: values.city,
+      // city: values.city,
       topic: values.topic,
       creatorEmail: values.creatorEmail,
       recipient: values.recipient,

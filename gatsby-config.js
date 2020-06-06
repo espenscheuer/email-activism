@@ -19,6 +19,7 @@ module.exports = {
     title: `Emails For Change`,
     description: `Making it easier to email those in positions of power and advocate for change.`,
     author: `@espenscheuer`,
+    siteUrl,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
