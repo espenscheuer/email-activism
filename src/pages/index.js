@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import "./index.css"
-import { Select, Collapse, Spin, message, Row, Col } from "antd"
+import { Select, Collapse, Spin, message, Row, Col, Button } from "antd"
 
 import { CopyOutlined } from "@ant-design/icons"
 
@@ -178,8 +178,8 @@ function IndexPage() {
                   {filtered.map((item, index) => (
                     <Panel header={item.title} key={index}>
                       <div>
-                        <p>Recipient: {item.recipient}</p>
-                        <p>Topic: {item.topic}</p>
+                        <p><b>Recipient:</b> {item.recipient}</p>
+                        <p><b>Topic:</b> {item.topic}</p>
                         <p
                           style={{ cursor: "pointer" }}
                           onClick={() => {
@@ -187,7 +187,7 @@ function IndexPage() {
                             message.success("email copied!")
                           }}
                         >
-                          Email: {item.recipientEmail} <CopyOutlined />
+                          <b>Email:</b> {item.recipientEmail} <CopyOutlined />
                         </p>
                         <p
                           style={{ cursor: "pointer" }}
@@ -196,7 +196,7 @@ function IndexPage() {
                             message.success("subject copied")
                           }}
                         >
-                          Subject: {item.subject} <CopyOutlined />
+                          <b>Subject:</b> {item.subject} <CopyOutlined />
                         </p>
                         <p
                           style={{ cursor: "pointer" }}
@@ -205,11 +205,11 @@ function IndexPage() {
                             message.success("body copied!")
                           }}
                         >
-                          Body don't forget to replace the [x] with your info{" "}
+                          <b>Body</b> don't forget to replace the [x] with your info{" "}
                           <CopyOutlined />
                         </p>
                         <p
-                          style={{ cursor: "pointer" }}
+                          style={{ cursor: "pointer", whiteSpace : "pre-line" }}
                           onClick={() => {
                             navigator.clipboard.writeText(item.body)
                             message.success("body copied!")
@@ -222,9 +222,11 @@ function IndexPage() {
                         )}
 
                         <a
-                          href={`mailto:${item.recipientEmail}?subject=${item.recipientEmail}&body=${item.body}`}
+                          href={`mailto:${item.recipientEmail}?subject=${item.subject}&body=${item.body}`}
                         >
-                          Send Email!
+                          <Button type = "primary"> 
+                            Send Email
+                          </Button>
                         </a>
                       </div>
                     </Panel>
