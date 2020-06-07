@@ -194,10 +194,10 @@ function IndexPage() {
                         </p>
                         {item.ccEmails && item.ccEmails.length > 0 &&
                           <p
-                            style={{ cursor: "pointer" }}
+                            style={{ cursor: "pointer", whiteSpace : "pre-line"}}
                             onClick={() => {
                               navigator.clipboard.writeText(item.body)
-                              message.success("subject copied")
+                              message.success("cc's copied")
                             }}
                           >
                           <b>CC:</b> {item.ccEmails} <CopyOutlined />

@@ -4,6 +4,7 @@ import { ReCaptcha } from "react-recaptcha-google"
 import { Form, Row, Col, Input, Button, Select, Modal, Result } from "antd"
 import firebase from "gatsby-plugin-firebase"
 import "./index.css"
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons"
 
 import SEO from "../components/seo"
 import Header from "../components/header"
@@ -20,7 +21,18 @@ function SubmitPage() {
     wrapperCol: { span: 21 },
   }
   const tailLayout = {
-    wrapperCol: { offset: 5, span: 16 },
+    wrapperCol: {
+      lg: { span: 21, offset: 5 },
+      sm: { span: 21, offset: 0 },
+    },
+  }
+
+  const formItemLayout = layout
+  const formItemLayoutWithOutLabel = {
+    wrapperCol: {
+      xs: { span: 24, offset: 0 },
+      sm: { span: 20, offset: 4 },
+    },
   }
 
   const states = [
@@ -98,19 +110,25 @@ function SubmitPage() {
   const onFinish = values => {
     console.log("Success:", values)
     let copy = values
-    if(!values.creatorName) {
-        copy.creatorName = ''
+    if (!values.creatorName) {
+      copy.creatorName = ""
     }
-    if(!values.state) {
-        copy.state ='All States'
+    if (!values.state) {
+      copy.state = "All States"
     }
-    if(!values.topic) {
-        copy.topic ="All Topics"
+    if (!values.topic) {
+      copy.topic = "All Topics"
     }
     if (!values.ccEmails) {
-      copy.ccEmails=''
+      copy.ccEmails = ""
     }
-    
+    let cc = ""
+    if (values.CC) {
+      cc = values.CC.toString()
+      const regEx = new RegExp('[,]', "g");
+      cc = cc.replace(regEx, ", ")
+      console.log(cc)
+    }
     const data = {
       title: copy.title,
       state: copy.state,
@@ -120,7 +138,7 @@ function SubmitPage() {
       creatorEmail: copy.creatorEmail,
       recipient: copy.recipient,
       recipientEmail: copy.recipientEmail,
-      ccEmails: copy.ccEmails,
+      ccEmails: cc,
       subject: copy.subject,
       body: copy.body,
       verified: false,
@@ -221,7 +239,8 @@ function SubmitPage() {
                 rules={[
                   {
                     required: true,
-                    message: "Please input a short description for your template!",
+                    message:
+                      "Please input a short description for your template!",
                   },
                 ]}
               >
@@ -324,7 +343,60 @@ function SubmitPage() {
               >
                 <Input />
               </Form.Item>
-              <Form.Item
+              <Form.List name="CC">
+                {(fields, { add, remove }) => {
+                  return (
+                    <div>
+                      {fields.map((field, index) => (
+                        <Form.Item
+                          label={"Additional Recipient"}
+                          required={false}
+                          key={field.key}
+                        >
+                          <Form.Item
+                            {...field}
+                            validateTrigger={["onChange", "onBlur"]}
+                            rules={[
+                              {
+                                required: true,
+                                whitespace: true,
+                                type: "email",
+                                message:
+                                  "Please input CC's or delete this field.",
+                              },
+                            ]}
+                            noStyle
+                          >
+                            <Input
+                              placeholder="alex@gmail.com"
+                              style={{ width: "90%" }}
+                            />
+                          </Form.Item>
+                          <MinusCircleOutlined
+                            className="dynamic-delete-button"
+                            style={{ margin: "0 8px" }}
+                            onClick={() => {
+                              remove(field.name)
+                            }}
+                          />
+                        </Form.Item>
+                      ))}
+                      <Form.Item {...tailLayout}>
+                        <Button
+                          type="dashed"
+                          onClick={() => {
+                            add()
+                          }}
+                          style={{ width: "100%" }}
+                        >
+                          <PlusOutlined /> Add Additional Recipient
+                        </Button>
+                      </Form.Item>
+                    </div>
+                  )
+                }}
+              </Form.List>
+              {/*<Form.Item
                 label="CC:"
                 name="ccEmails"
                 rules={[
@@ -334,7 +406,7 @@ function SubmitPage() {
                 ]}
               >
               <Input placeholder="alice@gmail.com, bob@gmail.com"/>
-              </Form.Item>
+            </Form.Item>*/}
               <Form.Item
                 label="Email Subject"
                 name="subject"

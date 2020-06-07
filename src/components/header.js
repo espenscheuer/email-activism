@@ -27,6 +27,13 @@ function Header() {
           extra={[
             <Button
               onClick={() => {
+                navigate("/")
+              }}
+            >
+              Home
+            </Button>,
+            <Button
+              onClick={() => {
                 navigate("/about")
               }}
             >
@@ -38,13 +45,6 @@ function Header() {
               }}
             >
               Submit Template
-            </Button>,
-            <Button
-              onClick={() => {
-                navigate("/")
-              }}
-            >
-              Home
             </Button>,
           ]}
           
