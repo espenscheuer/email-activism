@@ -39,7 +39,15 @@ function Header() {
             >
               Submit Template
             </Button>,
+            <Button
+              onClick={() => {
+                navigate("/")
+              }}
+            >
+              Home
+            </Button>,
           ]}
+          
         />
       </Col>
       <Col xs={{ span: 0 }} lg={{ span: 4 }} />
