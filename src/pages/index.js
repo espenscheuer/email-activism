@@ -89,6 +89,7 @@ function IndexPage() {
               state: email.data().state,
               //city: email.data().city,
               topic: email.data().topic,
+              ccEmails: email.data().ccEmails,
             })
           })
           const currStates = ["All States"]
@@ -189,8 +190,19 @@ function IndexPage() {
                             message.success("email copied!")
                           }}
                         >
-                          <b>Email:</b> {item.recipientEmail} <CopyOutlined />
+                        <b>Email:</b> {item.recipientEmail} <CopyOutlined />
                         </p>
+                        {item.ccEmails && item.ccEmails.length > 0 &&
+                          <p
+                            style={{ cursor: "pointer" }}
+                            onClick={() => {
+                              navigator.clipboard.writeText(item.body)
+                              message.success("subject copied")
+                            }}
+                          >
+                          <b>CC:</b> {item.ccEmails} <CopyOutlined />
+                          </p>
+                        }
                         <p
                           style={{ cursor: "pointer" }}
                           onClick={() => {
@@ -198,6 +210,7 @@ function IndexPage() {
                             message.success("subject copied")
                           }}
                         >
+                        
                           <b>Subject:</b> {item.subject} <CopyOutlined />
                         </p>
                         <p
@@ -224,7 +237,7 @@ function IndexPage() {
                         )}
 
                         <a
-                          href={`mailto:${item.recipientEmail}?subject=${item.subject}&body=${item.body}`}
+                          href={`mailto:${item.recipientEmail}?cc=${item.ccEmails}&subject=${item.subject}&body=${item.body}`}
                         >
                           <Button type = "primary"> 
                             Send Email

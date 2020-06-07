@@ -107,6 +107,9 @@ function SubmitPage() {
     if(!values.topic) {
         copy.topic ="All Topics"
     }
+    if (!values.ccEmails) {
+      copy.ccEmails=''
+    }
     
     const data = {
       title: copy.title,
@@ -117,6 +120,7 @@ function SubmitPage() {
       creatorEmail: copy.creatorEmail,
       recipient: copy.recipient,
       recipientEmail: copy.recipientEmail,
+      ccEmails: copy.ccEmails,
       subject: copy.subject,
       body: copy.body,
       verified: false,
@@ -319,6 +323,17 @@ function SubmitPage() {
                 ]}
               >
                 <Input />
+              </Form.Item>
+              <Form.Item
+                label="CC:"
+                name="ccEmails"
+                rules={[
+                  {
+                    message: "Please input a valid email!",
+                  },
+                ]}
+              >
+              <Input placeholder="alice@gmail.com, bob@gmail.com"/>
               </Form.Item>
               <Form.Item
                 label="Email Subject"
