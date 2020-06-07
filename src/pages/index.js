@@ -10,6 +10,7 @@ import Footer from "../components/footer"
 import firebase from "gatsby-plugin-firebase"
 
 function IndexPage() {
+  
   const { Panel } = Collapse
 
   function handleStateChange(e) {
@@ -81,6 +82,7 @@ function IndexPage() {
               title: email.data().title,
               author: email.data().authorName,
               recipient: email.data().recipient,
+              description : email.data().description,
               recipientEmail: email.data().recipientEmail,
               subject: email.data().subject,
               body: email.data().body,
@@ -180,7 +182,7 @@ function IndexPage() {
               <div>
                 <Collapse style={{ margin: 20 }}>
                   {filtered.map((item, index) => (
-                    <Panel header={item.title} key={index}>
+                    <Panel header={<div><b>{item.title} {":  "}</b>{item.description}</div>} key={index}>
                       <div>
                         <p><b>Recipient:</b> {item.recipient}</p>
                         <p><b>Topic:</b> {item.topic}</p>

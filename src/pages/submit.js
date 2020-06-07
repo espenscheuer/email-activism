@@ -87,6 +87,7 @@ function SubmitPage() {
   ]
   const cities = ["All Cities", "Seattle", "Washington", "New York"]
   const topics = [
+    "All Topics",
     "Defund/Demiltarize Police",
     "Elected Officials Requests",
     "Recognition of Past Violence",
@@ -112,6 +113,7 @@ function SubmitPage() {
       state: copy.state,
       // city: copy.city,
       topic: copy.topic,
+      description: copy.description,
       creatorEmail: copy.creatorEmail,
       recipient: copy.recipient,
       recipientEmail: copy.recipientEmail,
@@ -204,6 +206,18 @@ function SubmitPage() {
                   {
                     required: true,
                     message: "Please input a title for your template!",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="One Line Description"
+                name="description"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input a short description for your template!",
                   },
                 ]}
               >
