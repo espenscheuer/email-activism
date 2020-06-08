@@ -144,7 +144,7 @@ function IndexPage() {
                 <Select
                   mode="single"
                   style={{
-                    width: "20%",
+                    width: "30%",
                     minWidth: 100,
                     marginTop: 20,
                     marginLeft: 20,
@@ -175,7 +175,7 @@ function IndexPage() {
                 */}
                 <Select
                   mode="single"
-                  style={{ width: "20%", minWidth: 100, marginRight: 20 }}
+                  style={{ width: "30%", minWidth: 100, marginRight: 20 }}
                   placeholder="Topics"
                   defaultValue={["All Topics"]}
                   onChange={handleTopicChange}
