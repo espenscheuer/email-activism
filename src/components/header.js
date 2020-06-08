@@ -5,7 +5,7 @@ import "antd/dist/antd.css"
 
 function Header() {
   const { Title } = Typography
-  const url =  window ? window.location.href : "/"
+  const url =  (typeof(window) !== 'undefined') ? window.location.href : "/";
   const title = (
     <div
       style={{ cursor: "pointer" }}
