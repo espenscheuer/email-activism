@@ -31,7 +31,7 @@ function SubmitPage() {
   const formItemLayoutWithOutLabel = {
     wrapperCol: {
       xs: { span: 24, offset: 0 },
-      sm: { span: 20, offset: 4 },
+      sm: { span: 19, offset: 5 },
     },
   }
 
@@ -349,7 +349,8 @@ function SubmitPage() {
                     <div>
                       {fields.map((field, index) => (
                         <Form.Item
-                          label={"Additional Recipient"}
+                          {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
+                          label={index === 0 ? 'CC:' : ''}
                           required={false}
                           key={field.key}
                         >
@@ -389,7 +390,7 @@ function SubmitPage() {
                           }}
                           style={{ width: "100%" }}
                         >
-                          <PlusOutlined /> Add Additional Recipient
+                          <PlusOutlined /> Add a CC
                         </Button>
                       </Form.Item>
                     </div>
