@@ -3,9 +3,8 @@ import React from "react"
 import { PageHeader, Button, Row, Col, Typography } from "antd"
 import "antd/dist/antd.css"
 
-function Header() {
+function Header({name}) {
   const { Title } = Typography
-  const url =  (typeof(window) !== 'undefined') ? window.location.href : "/";
   const title = (
     <div
       style={{ cursor: "pointer" }}
@@ -27,7 +26,7 @@ function Header() {
           extra={[
             <Button
               style={
-                !url.includes("about") && !url.includes("submit")
+                name === "home"
                   ? { color: "#F4B942", paddingTop: 10 }
                   : { color: "black", paddingTop: 10 }
               }
@@ -40,7 +39,7 @@ function Header() {
             </Button>,
             <Button
               style={
-                url.includes("about")
+                name === "about"
                   ? { color: "#F4B942", paddingTop: 10 }
                   : { color: "black", paddingTop: 10 }
               }
@@ -53,7 +52,7 @@ function Header() {
             </Button>,
             <Button
               style={
-                url.includes("submit")
+                name === "submit"
                   ? { color: "#F4B942", paddingTop: 10 }
                   : { color: "black", paddingTop: 10 }
               }

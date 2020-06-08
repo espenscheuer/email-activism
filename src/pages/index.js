@@ -115,17 +115,19 @@ function IndexPage() {
 
   function getBody(email) {
     let copy = ""
-    email.data().body.split('\n').map((item, key) => {
-      copy+=item+'\r\n'
-    })
+    email
+      .data()
+      .body.split("\n")
+      .map((item, key) => {
+        copy += item + "\r\n"
+      })
     return copy
   }
 
   return (
     <>
+      <Header name="home" />
       <SEO title="Find Causes" />
-      <Header />
-
       {!loading && (
         <>
           <Row>
@@ -189,6 +191,7 @@ function IndexPage() {
                 <Collapse style={{ margin: 20 }}>
                   {filtered.map((item, index) => (
                     <Panel
+                      key={index}
                       header={
                         <div>
                           <b>
@@ -262,7 +265,11 @@ function IndexPage() {
                         )}
 
                         <a
-                          href={`mailto:${item.recipientEmail}?cc=${item.ccEmails}&subject=${item.subject}&body=${encodeURIComponent(item.body)}`}
+                          href={`mailto:${item.recipientEmail}?cc=${
+                            item.ccEmails
+                          }&subject=${item.subject}&body=${encodeURIComponent(
+                            item.body
+                          )}`}
                         >
                           <Button type="primary">Send Email</Button>
                         </a>

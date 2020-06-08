@@ -10,11 +10,11 @@ import { Row, Col } from "antd"
 function AboutPage() {
   return (
     <>
-    <Header name="About" />
+    <Header name="about" />
+    <SEO title="About" />
       <Row>
-        <SEO title="About" />
         <Col xs={{ span: 0 }} lg={{ span: 4 }} />
-        <Col xs={{ span: 24 }} lg={{ span: 16 }}>
+        <Col xs={{ span: 22 }} lg={{ span: 16 }}>
           <div style={{ margin: 20, marginBottom : 0 }}>
             <p>
               This site was created by three UW graduates, Espen Scheuer, Cat
@@ -33,7 +33,7 @@ function AboutPage() {
             </p>
           </div>
         </Col>
-        <Col xs={{ span: 0 }} lg={{ span: 4 }} />
+        <Col xs={{ span: 2 }} lg={{ span: 4 }} />
       </Row>
       <Footer/>
     </>

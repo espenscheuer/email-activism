@@ -132,14 +132,16 @@ function SubmitPage() {
       cc = cc.replace(regEx, ", ")
       console.log(cc)
     }
-    {copy.body.split('\n').map(function(item, key) {
-      return (
-        <span key={key}>
-          {item}
-          <br/>
-        </span>
-      )
-    })}
+    {
+      copy.body.split("\n").map(function (item, key) {
+        return (
+          <span key={key}>
+            {item}
+            <br />
+          </span>
+        )
+      })
+    }
     const data = {
       title: copy.title,
       state: copy.state,
@@ -188,8 +190,8 @@ function SubmitPage() {
 
   return (
     <>
+      <Header name="submit" />
       <SEO title="Submit" />
-      <Header name="Submit" />
       <Row>
         <Col xs={{ span: 0 }} lg={{ span: 4 }} />
         <Col xs={{ span: 22 }} lg={{ span: 16 }}>
@@ -434,33 +436,38 @@ function SubmitPage() {
               >
               <Input placeholder="alice@gmail.com, bob@gmail.com"/>
             </Form.Item>*/}
-              <Form.Item
-                label="Email Subject"
-                name="subject"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter the subject for your email!",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                label="Email Body"
-                name="body"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter the body for your email! ",
-                  },
-                ]}
-              >
-                <TextArea style={{whitespace: "pre-line"}} rows={4} />
-              </Form.Item>
+                <Form.Item
+                  label="Email Subject"
+                  name="subject"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter the subject for your email!",
+                    },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  label="Email Body"
+                  name="body"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter the body for your email! ",
+                    },
+                  ]}
+                >
+                  <TextArea style={{ whitespace: "pre-line" }} rows={4} />
+                </Form.Item>
 
                 <Form.Item {...tailLayout}>
-                  <Button type="primary" loading={loading} htmlType="submit" style = {{width: 150}}>
+                  <Button
+                    type="primary"
+                    loading={loading}
+                    htmlType="submit"
+                    style={{ width: 150 }}
+                  >
                     Submit
                   </Button>
                 </Form.Item>
