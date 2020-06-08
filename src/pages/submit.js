@@ -131,6 +131,14 @@ function SubmitPage() {
       cc = cc.replace(regEx, ", ")
       console.log(cc)
     }
+    {copy.body.split('\n').map(function(item, key) {
+      return (
+        <span key={key}>
+          {item}
+          <br/>
+        </span>
+      )
+    })}
     const data = {
       title: copy.title,
       state: copy.state,
@@ -432,7 +440,7 @@ function SubmitPage() {
                   },
                 ]}
               >
-                <TextArea rows={4} />
+                <TextArea style={{whitespace: "pre-line"}} rows={4} />
               </Form.Item>
 
               <Form.Item {...tailLayout}>
