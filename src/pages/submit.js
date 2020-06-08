@@ -132,6 +132,14 @@ function SubmitPage() {
       cc = cc.replace(regEx, ", ")
       console.log(cc)
     }
+    {copy.body.split('\n').map(function(item, key) {
+      return (
+        <span key={key}>
+          {item}
+          <br/>
+        </span>
+      )
+    })}
     const data = {
       title: copy.title,
       state: copy.state,
@@ -426,6 +434,7 @@ function SubmitPage() {
               >
               <Input placeholder="alice@gmail.com, bob@gmail.com"/>
             </Form.Item>*/}
+<<<<<<< HEAD
                 <Form.Item
                   label="Email Subject"
                   name="subject"
@@ -450,6 +459,32 @@ function SubmitPage() {
                 >
                   <TextArea rows={4} />
                 </Form.Item>
+=======
+              <Form.Item
+                label="Email Subject"
+                name="subject"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter the subject for your email!",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="Email Body"
+                name="body"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter the body for your email! ",
+                  },
+                ]}
+              >
+                <TextArea style={{whitespace: "pre-line"}} rows={4} />
+              </Form.Item>
+>>>>>>> 6b207f599b40eb936537c529ecd37245b3bd6e16
 
                 <Form.Item {...tailLayout}>
                   <Button type="primary" loading={loading} htmlType="submit" style = {{width: 150}}>

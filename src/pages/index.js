@@ -84,13 +84,14 @@ function IndexPage() {
               description: email.data().description,
               recipientEmail: email.data().recipientEmail,
               subject: email.data().subject,
-              body: email.data().body,
+              body: getBody(email),
               state: email.data().state,
               //city: email.data().city,
               topic: email.data().topic,
               ccEmails: email.data().ccEmails,
             })
           })
+
           const currStates = ["All States"]
           //const currCities = ["All Cities"]
           const currTopics = ["All Topics"]
@@ -111,6 +112,14 @@ function IndexPage() {
     getEmails()
     setLoading(false)
   }, [])
+
+  function getBody(email) {
+    let copy = ""
+    email.data().body.split('\n').map((item, key) => {
+      copy+=item+'\r\n'
+    })
+    return copy
+  }
 
   return (
     <>
@@ -253,7 +262,7 @@ function IndexPage() {
                         )}
 
                         <a
-                          href={`mailto:${item.recipientEmail}?cc=${item.ccEmails}&subject=${item.subject}&body=${item.body}`}
+                          href={`mailto:${item.recipientEmail}?cc=${item.ccEmails}&subject=${item.subject}&body=${encodeURIComponent(item.body)}`}
                         >
                           <Button type="primary">Send Email</Button>
                         </a>
