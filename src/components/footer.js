@@ -1,7 +1,7 @@
 import React from "react"
 import { Layout, Row, Col } from "antd"
 import "antd/dist/antd.css"
-import { GithubOutlined } from "@ant-design/icons"
+import "../pages/index.css"
 
 function PageFooter() {
   const { Footer } = Layout

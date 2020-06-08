@@ -10,7 +10,6 @@ import Footer from "../components/footer"
 import firebase from "gatsby-plugin-firebase"
 
 function IndexPage() {
-  
   const { Panel } = Collapse
 
   function handleStateChange(e) {
@@ -82,7 +81,7 @@ function IndexPage() {
               title: email.data().title,
               author: email.data().authorName,
               recipient: email.data().recipient,
-              description : email.data().description,
+              description: email.data().description,
               recipientEmail: email.data().recipientEmail,
               subject: email.data().subject,
               body: email.data().body,
@@ -96,11 +95,11 @@ function IndexPage() {
           //const currCities = ["All Cities"]
           const currTopics = ["All Topics"]
           allEmails.forEach(element => {
-              currStates.push(element.state)
+            currStates.push(element.state)
             //if (!currCities.includes(element.city)) {
             //  currCities.push(element.city)
             //}
-              currTopics.push(element.topic)
+            currTopics.push(element.topic)
           })
           setStates([...new Set(currStates)])
           //setCities(currCities)
@@ -124,15 +123,12 @@ function IndexPage() {
             <Col xs={{ span: 0 }} lg={{ span: 4 }} />
             <Col xs={{ span: 24 }} lg={{ span: 16 }}>
               <div>
-                <p style={{ margin: 20, marginBottom: 0 }}>
+                <p style={{ margin: 20, marginBottom: 0, marginTop: 0 }}>
                   {" "}
-                  Here you can find a list of email templates submitted by the
-                  community. You can filter them by state, or topic. If you
-                  don't see a topic that is important to you please reach out.
-                  If the send email link doesn't work just copy the recipient
-                  and body by clicking on it. If you have your own template or
-                  found one you would like to submit head over to the submit tab
-                  in the upper right.{" "}
+                  Take action by contacting government officials. Use our
+                  community-sourced collection of email templates to demand
+                  change. Do your part in the fight against institutional racism
+                  in the United States.{" "}
                 </p>
                 <Select
                   mode="single"
@@ -148,7 +144,9 @@ function IndexPage() {
                   onChange={handleStateChange}
                 >
                   {states.map(item => (
-                    <Select.Option key={item} value={item}>{item}</Select.Option>
+                    <Select.Option key={item} value={item}>
+                      {item}
+                    </Select.Option>
                   ))}
                 </Select>
                 {/*
@@ -172,17 +170,33 @@ function IndexPage() {
                   onChange={handleTopicChange}
                 >
                   {topics.map(item => (
-                    <Select.Option key={item} value={item}>{item}</Select.Option>
+                    <Select.Option key={item} value={item}>
+                      {item}
+                    </Select.Option>
                   ))}
                 </Select>
               </div>
               <div>
                 <Collapse style={{ margin: 20 }}>
                   {filtered.map((item, index) => (
-                    <Panel header={<div><b>{item.title} {":  "}</b>{item.description}</div>} key={index}>
+                    <Panel
+                      header={
+                        <div>
+                          <b>
+                            {item.title} {"-  "}
+                          </b>
+                          {item.description}
+                        </div>
+                      }
+                      key={index}
+                    >
                       <div>
-                        <p><b>Recipient:</b> {item.recipient}</p>
-                        <p><b>Topic:</b> {item.topic}</p>
+                        <p>
+                          <b>Recipient:</b> {item.recipient}
+                        </p>
+                        <p>
+                          <b>Topic:</b> {item.topic}
+                        </p>
                         <p
                           style={{ cursor: "pointer" }}
                           onClick={() => {
@@ -190,19 +204,22 @@ function IndexPage() {
                             message.success("email copied!")
                           }}
                         >
-                        <b>Email:</b> {item.recipientEmail} <CopyOutlined />
+                          <b>Email:</b> {item.recipientEmail} <CopyOutlined />
                         </p>
-                        {item.ccEmails && item.ccEmails.length > 0 &&
+                        {item.ccEmails && item.ccEmails.length > 0 && (
                           <p
-                            style={{ cursor: "pointer", whiteSpace : "pre-line"}}
+                            style={{
+                              cursor: "pointer",
+                              whiteSpace: "pre-line",
+                            }}
                             onClick={() => {
                               navigator.clipboard.writeText(item.body)
                               message.success("cc's copied")
                             }}
                           >
-                          <b>CC:</b> {item.ccEmails} <CopyOutlined />
+                            <b>CC:</b> {item.ccEmails} <CopyOutlined />
                           </p>
-                        }
+                        )}
                         <p
                           style={{ cursor: "pointer" }}
                           onClick={() => {
@@ -210,7 +227,6 @@ function IndexPage() {
                             message.success("subject copied")
                           }}
                         >
-                        
                           <b>Subject:</b> {item.subject} <CopyOutlined />
                         </p>
                         <p
@@ -220,11 +236,11 @@ function IndexPage() {
                             message.success("body copied!")
                           }}
                         >
-                          <b>Body</b> don't forget to replace the [x] with your info{" "}
-                          <CopyOutlined />
+                          <b>Body</b> don't forget to replace the [x] with your
+                          info <CopyOutlined />
                         </p>
                         <p
-                          style={{ cursor: "pointer", whiteSpace : "pre-line" }}
+                          style={{ cursor: "pointer", whiteSpace: "pre-line" }}
                           onClick={() => {
                             navigator.clipboard.writeText(item.body)
                             message.success("body copied!")
@@ -239,9 +255,7 @@ function IndexPage() {
                         <a
                           href={`mailto:${item.recipientEmail}?cc=${item.ccEmails}&subject=${item.subject}&body=${item.body}`}
                         >
-                          <Button type = "primary"> 
-                            Send Email
-                          </Button>
+                          <Button type="primary">Send Email</Button>
                         </a>
                       </div>
                     </Panel>

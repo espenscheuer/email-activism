@@ -33,6 +33,24 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
+      resolve: 'gatsby-plugin-antd',
+      options: {
+        style: true
+      }
+    },
+    {
+      resolve: "gatsby-plugin-less",
+      options: {
+        javascriptEnabled: true,
+        modifyVars: {
+          "primary-color": "#175676",
+          "link-color": "#175676",
+          "font-size-base": "14px",
+          "font-family": "Roboto", 
+        }
+      }
+    },
+    {
 			resolve: 'gatsby-plugin-firebase',
 			options: {
 				credentials: {
