@@ -121,7 +121,7 @@ function IndexPage() {
         <>
           <Row>
             <Col xs={{ span: 0 }} lg={{ span: 4 }} />
-            <Col xs={{ span: 24 }} lg={{ span: 16 }}>
+            <Col xs={{ span: 22 }} lg={{ span: 16 }}>
               <div>
                 <p style={{ margin: 20, marginBottom: 0, marginTop: 0 }}>
                   {" "}
@@ -263,7 +263,7 @@ function IndexPage() {
                 </Collapse>
               </div>
             </Col>
-            <Col xs={{ span: 0 }} lg={{ span: 4 }} />
+            <Col xs={{ span: 2 }} lg={{ span: 4 }} />
           </Row>
         </>
       )}
