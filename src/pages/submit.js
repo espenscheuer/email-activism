@@ -35,6 +35,8 @@ function SubmitPage() {
     },
   }
 
+  const emailPlaceholders = ["alex@gmail.com", "alice@comcast.net", "bob@aol.com"]
+
   const states = [
     "All States",
     "Alabama",
@@ -369,7 +371,7 @@ function SubmitPage() {
                             noStyle
                           >
                             <Input
-                              placeholder="alex@gmail.com"
+                              placeholder={emailPlaceholders[index % emailPlaceholders.length]}
                               style={{ width: "90%" }}
                             />
                           </Form.Item>
