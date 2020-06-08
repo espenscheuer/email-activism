@@ -31,9 +31,11 @@ function SubmitPage() {
   const formItemLayoutWithOutLabel = {
     wrapperCol: {
       xs: { span: 24, offset: 0 },
-      sm: { span: 20, offset: 4 },
+      sm: { span: 19, offset: 5 },
     },
   }
+
+  const emailPlaceholders = ["alex@gmail.com", "alice@comcast.net", "bob@aol.com"]
 
   const states = [
     "All States",
@@ -349,7 +351,8 @@ function SubmitPage() {
                     <div>
                       {fields.map((field, index) => (
                         <Form.Item
-                          label={"Additional Recipient"}
+                          {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
+                          label={index === 0 ? 'CC:' : ''}
                           required={false}
                           key={field.key}
                         >
@@ -368,7 +371,7 @@ function SubmitPage() {
                             noStyle
                           >
                             <Input
-                              placeholder="alex@gmail.com"
+                              placeholder={emailPlaceholders[index % emailPlaceholders.length]}
                               style={{ width: "90%" }}
                             />
                           </Form.Item>
@@ -389,7 +392,7 @@ function SubmitPage() {
                           }}
                           style={{ width: "100%" }}
                         >
-                          <PlusOutlined /> Add Additional Recipient
+                          <PlusOutlined /> Add a CC
                         </Button>
                       </Form.Item>
                     </div>
