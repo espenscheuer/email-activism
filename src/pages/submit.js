@@ -1,10 +1,55 @@
 import React, { useState } from "react"
 import { ReCaptcha } from "react-recaptcha-google"
 // import { Link } from "gatsby"
-import { Form, Row, Col, Input, Button, Select, Modal, Result } from "antd"
+import { Form, Row, Col, Input, message, Button, Select, Modal, Result } from "antd"
 import firebase from "gatsby-plugin-firebase"
 import "./index.css"
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons"
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  InstapaperShareButton,
+  LineShareButton,
+  LinkedinShareButton,
+  LivejournalShareButton,
+  MailruShareButton,
+  OKShareButton,
+  PinterestShareButton,
+  PocketShareButton,
+  RedditShareButton,
+  TelegramShareButton,
+  TumblrShareButton,
+  TwitterShareButton,
+  ViberShareButton,
+  VKShareButton,
+  WhatsappShareButton,
+  WorkplaceShareButton
+} from "react-share";
+
+import {
+  EmailIcon,
+  FacebookIcon,
+  FacebookMessengerIcon,
+  InstapaperIcon,
+  LineIcon,
+  LinkedinIcon,
+  LivejournalIcon,
+  MailruIcon,
+  OKIcon,
+  PinterestIcon,
+  PocketIcon,
+  RedditIcon,
+  TelegramIcon,
+  TumblrIcon,
+  TwitterIcon,
+  ViberIcon,
+  VKIcon,
+  WeiboIcon,
+  WhatsappIcon,
+  WorkplaceIcon
+} from "react-share";
+
+import { CopyOutlined, ConsoleSqlOutlined } from "@ant-design/icons"
 
 import SEO from "../components/seo"
 import Header from "../components/header"
@@ -161,12 +206,12 @@ function SubmitPage() {
     }
     getTinyURL(copy).then(res => { 
       data['shareURL'] = res
-      // data.shareURL = shareURL
       firebase
         .firestore()
         .collection("data")
         .add(data)
         .then(() => {
+          setShareURL(res)
           setSubmitSuccess(true)
           console.log("success")
         })
@@ -219,9 +264,32 @@ function SubmitPage() {
           {submitSuccess && !submitError && (
             <Result
               status="success"
-              title="Thank you! Your template has been submitted for review!"
-              subTitle="You will be notified via the provided email when it has been verified and uploaded"
+              title="Thank you! Your template has been submitted for review."
+              subTitle="You can share the new mailto link that has been created for your template while your submission is under review for upload to our site. We'll notify you via the provided email address upon approval."
               extra={[
+                <div style={{ textAlign: "center", paddingBottom: 10 }}> 
+                <TwitterShareButton url={shareURL}>
+                  <TwitterIcon
+                  size={32}
+                  round />
+                </TwitterShareButton>
+                <FacebookShareButton url={shareURL} quote={shareURL}>
+                  <FacebookIcon
+                  size={32}
+                  round />
+                </FacebookShareButton>
+                <EmailShareButton url={shareURL}>
+                  <EmailIcon
+                  size={32}
+                  round />
+                </EmailShareButton>
+                <Button style={{bottom: 10}} onClick={() => {
+                  navigator.clipboard.writeText(shareURL)
+                  message.success("Link copied!")
+                }}>
+                Copy Link
+                </Button>
+              </div>,
                 <Button key="back" onClick={() => navigate("/")}>
                   Back to Home
                 </Button>,
