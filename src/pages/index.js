@@ -8,7 +8,6 @@ import {
   Row,
   Col,
   Button,
-  Form,
   Input,
 } from "antd"
 import {
@@ -28,6 +27,7 @@ import firebase from "gatsby-plugin-firebase"
 
 function IndexPage() {
   const { Panel } = Collapse
+  const { Search } = Input;
 
   function handleStateChange(e) {
     if (!e.includes("All States")) {
@@ -152,7 +152,7 @@ function IndexPage() {
 
   function templateFilterOnEnter(value) {
     let searchVals = []
-    const inputVal = value.target.value.toLowerCase()
+    const inputVal = value.toLowerCase()
     emails.forEach(email => {
       if (
         (email.state === currState || currState === "All States") &&
@@ -232,31 +232,14 @@ function IndexPage() {
                     </Select.Option>
                   ))}
                 </Select>
-                  <Input
+                  <Search
                     placeholder="Search by Title"
-                    onPressEnter={value => templateFilterOnEnter(value)}
+                    onSearch={value => templateFilterOnEnter(value)}
                     onChange={value => templateFilterOnChange(value)}
-                    style={{ width: "20%" }}
+                    style={{ width: "22%" }}
                     allowClear={true}
                   />
               </div>
-              
-              {/* <div>
-              <Form
-                name="basic"
-                initialValues={{
-                  remember: true,
-                }}
-                onFinish={templateFilterOnChange}
-              >
-                <Form.Item
-                  label="Search By Title"
-                  name="titleSearch"
-                >
-                  <Input />
-                </Form.Item>
-                </Form>
-                </div> */}
               <div>
                 <Collapse style={{ margin: 20 }}>
                   {filtered.map((item, index) => (
