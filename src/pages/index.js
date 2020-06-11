@@ -1,8 +1,51 @@
 import React, { useState, useEffect } from "react"
 import "./index.css"
 import { Select, Collapse, Spin, message, Row, Col, Button } from "antd"
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  InstapaperShareButton,
+  LineShareButton,
+  LinkedinShareButton,
+  LivejournalShareButton,
+  MailruShareButton,
+  OKShareButton,
+  PinterestShareButton,
+  PocketShareButton,
+  RedditShareButton,
+  TelegramShareButton,
+  TumblrShareButton,
+  TwitterShareButton,
+  ViberShareButton,
+  VKShareButton,
+  WhatsappShareButton,
+  WorkplaceShareButton
+} from "react-share";
 
-import { CopyOutlined } from "@ant-design/icons"
+import {
+  EmailIcon,
+  FacebookIcon,
+  FacebookMessengerIcon,
+  InstapaperIcon,
+  LineIcon,
+  LinkedinIcon,
+  LivejournalIcon,
+  MailruIcon,
+  OKIcon,
+  PinterestIcon,
+  PocketIcon,
+  RedditIcon,
+  TelegramIcon,
+  TumblrIcon,
+  TwitterIcon,
+  ViberIcon,
+  VKIcon,
+  WeiboIcon,
+  WhatsappIcon,
+  WorkplaceIcon
+} from "react-share";
+
+import { CopyOutlined, ConsoleSqlOutlined } from "@ant-design/icons"
 
 import SEO from "../components/seo"
 import Header from "../components/header"
@@ -63,6 +106,7 @@ function IndexPage() {
   const [states, setStates] = useState([])
   //const [cities, setCities] = useState([])
   const [topics, setTopics] = useState([])
+  const [shareURL, setShareURL] = useState(null)
 
   useEffect(() => {
     // Since firebase runs async, only update state if the app is mounted
@@ -89,6 +133,7 @@ function IndexPage() {
               //city: email.data().city,
               topic: email.data().topic,
               ccEmails: email.data().ccEmails,
+              shareURL: email.data().shareURL,
             })
           })
 
@@ -212,6 +257,7 @@ function IndexPage() {
                         <p
                           style={{ cursor: "pointer" }}
                           onClick={() => {
+                            console.log(item)
                             navigator.clipboard.writeText(item.body)
                             message.success("email copied!")
                           }}
@@ -273,6 +319,11 @@ function IndexPage() {
                         >
                           <Button type="primary">Send Email</Button>
                         </a>
+                          <TwitterShareButton url={item.shareURL}>
+                            <TwitterIcon
+                            size={32}
+                            round />
+                          </TwitterShareButton>
                       </div>
                     </Panel>
                   ))}

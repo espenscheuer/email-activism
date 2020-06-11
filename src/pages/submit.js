@@ -109,6 +109,7 @@ function SubmitPage() {
   const [submitSuccess, setSubmitSuccess] = useState(false)
   const [submitError, setSubmitError] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [shareURL, setShareURL] = useState("")
 
   const onFinish = values => {
     setLoading(true)
@@ -142,6 +143,7 @@ function SubmitPage() {
         )
       })
     }
+    copy.shareURL = "didn't get overwritten"
     const data = {
       title: copy.title,
       state: copy.state,
@@ -155,19 +157,26 @@ function SubmitPage() {
       subject: copy.subject,
       body: copy.body,
       verified: false,
+      shareURL: copy.shareURL,
     }
-    firebase
-      .firestore()
-      .collection("data")
-      .add(data)
-      .then(() => {
-        setSubmitSuccess(true)
-        console.log("success")
-      })
-      .catch(e => {
-        setSubmitError(true)
-      })
-    setLoading(false)
+    getTinyURL(copy).then(res => 
+      { 
+      data['shareURL'] = res
+      // data.shareURL = shareURL
+      firebase
+        .firestore()
+        .collection("data")
+        .add(data)
+        .then(() => {
+          setSubmitSuccess(true)
+          console.log("success")
+        })
+        .catch(e => {
+          setSubmitError(true)
+        })
+      setLoading(false)
+      });
+
   }
 
   function handleCancel() {
@@ -186,6 +195,17 @@ function SubmitPage() {
       content:
         "Sorry, an error occurred. Your template could not be submitted.",
     })
+  }
+
+  function getTinyURL(item) {
+    var TinyURL = require('tinyurl');
+    const result = TinyURL.shorten(`mailto:${item.recipientEmail}?cc=${
+      item.ccEmails
+    }&subject=${item.subject}&body=${encodeURIComponent(
+      item.body
+      
+    )}`)
+    return result;
   }
 
   return (
