@@ -139,15 +139,22 @@ function IndexPage() {
     return copy
   }
 
-  function templateFilterOnChange(value) {
+  function templateFilterOnEnter(value) {
     let searchVals = []
-    console.log(value)
+    const inputVal = value.target.value.toLowerCase()
     emails.forEach(email => {
-      if ((email.state === currState || currState === "All States") && (email.title.includes(value.titleSearch) || value.titleSearch === "")) {
+      if ((email.state === currState || currState === "All States") 
+          && (email.title.toLowerCase().includes(inputVal) || inputVal === "")) {
         searchVals.push(email);
       }
     });
     setFiltered(searchVals);
+  }
+
+  function templateFilterOnChange(value) {
+    if (value.target.value === "") {
+      handleStateChange(currState)
+    }
   }
 
   return (
@@ -212,8 +219,15 @@ function IndexPage() {
                     </Select.Option>
                   ))}
                 </Select>
+                <Input
+                    placeholder="Search by Title"
+                    onPressEnter={value => templateFilterOnEnter(value)}
+                    onChange={value => templateFilterOnChange(value)}
+                    style={{ width: "20%", marginLeft: "10%" }}
+                    allowClear={true}
+                />
               </div>
-              <div>
+              {/* <div>
               <Form
                 name="basic"
                 initialValues={{
@@ -228,7 +242,7 @@ function IndexPage() {
                   <Input />
                 </Form.Item>
                 </Form>
-                </div>
+                </div> */}
               <div>
                 <Collapse style={{ margin: 20 }}>
                   {filtered.map((item, index) => (
