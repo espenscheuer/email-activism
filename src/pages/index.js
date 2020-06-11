@@ -30,8 +30,8 @@ function IndexPage() {
   const { Search } = Input;
 
   function handleStateChange(e) {
+    setCurrState(e)
     if (!e.includes("All States")) {
-      setCurrState(e)
       const tempStates = []
       emails.forEach(element => {
         if (element.state === e) {
@@ -152,7 +152,7 @@ function IndexPage() {
 
   function templateFilterOnEnter(value) {
     let searchVals = []
-    const inputVal = value.toLowerCase()
+    const inputVal = value.target.value.toLowerCase()
     emails.forEach(email => {
       if (
         (email.state === currState || currState === "All States") &&
@@ -232,11 +232,11 @@ function IndexPage() {
                     </Select.Option>
                   ))}
                 </Select>
-                  <Search
+                  <Input
                     placeholder="Search by Title"
-                    onSearch={value => templateFilterOnEnter(value)}
+                    onPressEnter={value => templateFilterOnEnter(value)}
                     onChange={value => templateFilterOnChange(value)}
-                    style={{ width: "22%" }}
+                    style={{ width: "20%" }}
                     allowClear={true}
                   />
               </div>
