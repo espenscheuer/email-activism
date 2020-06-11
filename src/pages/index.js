@@ -114,11 +114,15 @@ function IndexPage() {
           setStates([...new Set(currStates)])
           //setCities(currCities)
           setTopics([...new Set(currTopics)])
+          const myData = allEmails
+          .sort((a, b) => a.title.localeCompare(b.title))
+          setFiltered(myData)
           setFiltered(allEmails)
           setEmails(allEmails)
         })
     }
     getEmails()
+    
     setLoading(false)
   }, [])
 
@@ -222,7 +226,7 @@ function IndexPage() {
                           style={{ cursor: "pointer" }}
                           onClick={() => {
                             console.log(item)
-                            navigator.clipboard.writeText(item.body)
+                            navigator.clipboard.writeText(item.recipientEmail)
                             message.success("email copied!")
                           }}
                         >
@@ -235,7 +239,7 @@ function IndexPage() {
                               whiteSpace: "pre-line",
                             }}
                             onClick={() => {
-                              navigator.clipboard.writeText(item.body)
+                              navigator.clipboard.writeText(item.ccEmails)
                               message.success("cc's copied")
                             }}
                           >
@@ -245,7 +249,7 @@ function IndexPage() {
                         <p
                           style={{ cursor: "pointer" }}
                           onClick={() => {
-                            navigator.clipboard.writeText(item.body)
+                            navigator.clipboard.writeText(item.subject)
                             message.success("subject copied")
                           }}
                         >
