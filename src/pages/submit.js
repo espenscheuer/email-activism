@@ -176,7 +176,6 @@ function SubmitPage() {
         })
       setLoading(false)
       });
-
   }
 
   function handleCancel() {

@@ -326,7 +326,7 @@ function IndexPage() {
                               size={32}
                               round />
                             </TwitterShareButton>
-                            <FacebookShareButton url={item.shareURL}>
+                            <FacebookShareButton url={item.shareURL} quote={item.shareURL}>
                               <FacebookIcon
                               size={32}
                               round />
@@ -336,6 +336,12 @@ function IndexPage() {
                               size={32}
                               round />
                             </EmailShareButton>
+                            <Button style={{bottom: 10}} onClick={() => {
+                              navigator.clipboard.writeText(item.shareURL)
+                              message.success("Link copied!")
+                            }}>
+                            Copy Link
+                            </Button>
                           </div>
                         }
                       </div>
