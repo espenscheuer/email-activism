@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from "react"
 import "./index.css"
-import { Select, Collapse, Spin, message, Row, Col, Button } from "antd"
+import {
+  Select,
+  Collapse,
+  Spin,
+  message,
+  Row,
+  Col,
+  Button,
+  Input,
+} from "antd"
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -18,9 +27,11 @@ import firebase from "gatsby-plugin-firebase"
 
 function IndexPage() {
   const { Panel } = Collapse
+  const { Search } = Input;
 
   function handleStateChange(e) {
     if (!e.includes("All States")) {
+      setCurrState(e)
       const tempStates = []
       emails.forEach(element => {
         if (element.state === e) {
@@ -71,6 +82,7 @@ function IndexPage() {
   //const [cities, setCities] = useState([])
   const [topics, setTopics] = useState([])
   const [shareURL, setShareURL] = useState(null)
+  const [currState, setCurrState] = useState("All States")
 
   useEffect(() => {
     // Since firebase runs async, only update state if the app is mounted
@@ -114,15 +126,16 @@ function IndexPage() {
           setStates([...new Set(currStates)])
           //setCities(currCities)
           setTopics([...new Set(currTopics)])
-          const myData = allEmails
-          .sort((a, b) => a.title.localeCompare(b.title))
+          const myData = allEmails.sort((a, b) =>
+            a.title.localeCompare(b.title)
+          )
           setFiltered(myData)
-          setFiltered(allEmails)
+          // setFiltered(allEmails)
           setEmails(allEmails)
         })
     }
     getEmails()
-    
+
     setLoading(false)
   }, [])
 
@@ -135,6 +148,26 @@ function IndexPage() {
         copy += item + "\r\n"
       })
     return copy
+  }
+
+  function templateFilterOnEnter(value) {
+    let searchVals = []
+    const inputVal = value.toLowerCase()
+    emails.forEach(email => {
+      if (
+        (email.state === currState || currState === "All States") &&
+        (email.title.toLowerCase().includes(inputVal) || inputVal === "")
+      ) {
+        searchVals.push(email)
+      }
+    })
+    setFiltered(searchVals)
+  }
+
+  function templateFilterOnChange(value) {
+    if (value.target.value === "") {
+      handleStateChange(currState)
+    }
   }
 
   return (
@@ -199,6 +232,13 @@ function IndexPage() {
                     </Select.Option>
                   ))}
                 </Select>
+                  <Search
+                    placeholder="Search by Title"
+                    onSearch={value => templateFilterOnEnter(value)}
+                    onChange={value => templateFilterOnChange(value)}
+                    style={{ width: "22%" }}
+                    allowClear={true}
+                  />
               </div>
               <div>
                 <Collapse style={{ margin: 20 }}>
