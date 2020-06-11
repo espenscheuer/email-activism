@@ -319,11 +319,23 @@ function IndexPage() {
                         >
                           <Button type="primary">Send Email</Button>
                         </a>
+                        <div style={{ float: "right" }}>
                           <TwitterShareButton url={item.shareURL}>
                             <TwitterIcon
                             size={32}
                             round />
                           </TwitterShareButton>
+                          <FacebookShareButton url={item.shareURL}>
+                            <FacebookIcon
+                            size={32}
+                            round />
+                          </FacebookShareButton>
+                          <EmailShareButton url={item.shareURL}>
+                            <EmailIcon
+                            size={32}
+                            round />
+                          </EmailShareButton>
+                        </div>
                       </div>
                     </Panel>
                   ))}
