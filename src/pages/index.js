@@ -4,48 +4,12 @@ import { Select, Collapse, Spin, message, Row, Col, Button } from "antd"
 import {
   EmailShareButton,
   FacebookShareButton,
-  InstapaperShareButton,
-  LineShareButton,
-  LinkedinShareButton,
-  LivejournalShareButton,
-  MailruShareButton,
-  OKShareButton,
-  PinterestShareButton,
-  PocketShareButton,
-  RedditShareButton,
-  TelegramShareButton,
-  TumblrShareButton,
   TwitterShareButton,
-  ViberShareButton,
-  VKShareButton,
-  WhatsappShareButton,
-  WorkplaceShareButton
-} from "react-share";
+} from "react-share"
 
-import {
-  EmailIcon,
-  FacebookIcon,
-  FacebookMessengerIcon,
-  InstapaperIcon,
-  LineIcon,
-  LinkedinIcon,
-  LivejournalIcon,
-  MailruIcon,
-  OKIcon,
-  PinterestIcon,
-  PocketIcon,
-  RedditIcon,
-  TelegramIcon,
-  TumblrIcon,
-  TwitterIcon,
-  ViberIcon,
-  VKIcon,
-  WeiboIcon,
-  WhatsappIcon,
-  WorkplaceIcon
-} from "react-share";
+import { EmailIcon, FacebookIcon, TwitterIcon } from "react-share"
 
-import { CopyOutlined, ConsoleSqlOutlined } from "@ant-design/icons"
+import { CopyOutlined } from "@ant-design/icons"
 
 import SEO from "../components/seo"
 import Header from "../components/header"
@@ -179,7 +143,7 @@ function IndexPage() {
             <Col xs={{ span: 0 }} lg={{ span: 4 }} />
             <Col xs={{ span: 22 }} lg={{ span: 16 }}>
               <div>
-                <p style={{ margin: 20, marginBottom: 0, marginTop: 0 }}>
+                <p style={{ margin: 20, marginBottom: 0 }}>
                   {" "}
                   Take action by contacting government officials. Use our
                   community-sourced collection of email templates to demand
@@ -309,41 +273,54 @@ function IndexPage() {
                         {item.author && (
                           <p>This template created by {item.author}</p>
                         )}
-
-                        <a
-                          href={`mailto:${item.recipientEmail}?cc=${
-                            item.ccEmails
-                          }&subject=${item.subject}&body=${encodeURIComponent(
-                            item.body
-                          )}`}
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                          }}
                         >
-                          <Button type="primary">Send Email</Button>
-                        </a>
-                        {item.shareURL && 
-                          <div style={{ float: "right" }}>
-                            <TwitterShareButton url={item.shareURL}>
-                              <TwitterIcon
-                              size={32}
-                              round />
-                            </TwitterShareButton>
-                            <FacebookShareButton url={item.shareURL} quote={item.shareURL}>
-                              <FacebookIcon
-                              size={32}
-                              round />
-                            </FacebookShareButton>
-                            <EmailShareButton url={item.shareURL}>
-                              <EmailIcon
-                              size={32}
-                              round />
-                            </EmailShareButton>
-                            <Button style={{bottom: 10}} onClick={() => {
-                              navigator.clipboard.writeText(item.shareURL)
-                              message.success("Link copied!")
-                            }}>
-                            Copy Link
-                            </Button>
-                          </div>
-                        }
+                          <a
+                            style={{ marginRight: "1vw" }}
+                            href={`mailto:${item.recipientEmail}?cc=${
+                              item.ccEmails
+                            }&subject=${item.subject}&body=${encodeURIComponent(
+                              item.body
+                            )}`}
+                          >
+                            <Button type="primary">Send Email</Button>
+                          </a>
+                          {item.shareURL && (
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                              }}
+                            >
+                              <Button
+                                style={{ marginRight: "1vw" }}
+                                onClick={() => {
+                                  navigator.clipboard.writeText(item.shareURL)
+                                  message.success("Link copied!")
+                                }}
+                              >
+                                Copy Link
+                              </Button>
+                              <TwitterShareButton
+                                style={{ marginRight: "1vw" }}
+                                url={item.shareURL}
+                              >
+                                <TwitterIcon size={32} round />
+                              </TwitterShareButton>
+                              <FacebookShareButton
+                                url={item.shareURL}
+                                quote={item.shareURL}
+                              >
+                                <FacebookIcon size={32} round />
+                              </FacebookShareButton>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </Panel>
                   ))}

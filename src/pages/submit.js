@@ -316,7 +316,7 @@ function SubmitPage() {
           )}
           {!submitSuccess && !submitError && (
             <>
-              <p style={{ margin: 20, marginBottom: 0, marginTop: 0 }}>
+              <p style={{ margin: 20, marginBottom: 0 }}>
                 {" "}
                 Here you can submit a template you have created or found to be
                 featured on the main page. Please credit the original creator of

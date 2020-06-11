@@ -1,3 +1,8 @@
+@media (max-width: 550px) {
+  .nav{
+    display : hidden;
+  }
+}
 
 a{
   color : #175676;
