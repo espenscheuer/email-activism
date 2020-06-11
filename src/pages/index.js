@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import "./index.css"
-import { Select, Collapse, Spin, message, Row, Col, Button } from "antd"
+import { Select, Collapse, Spin, message, Row, Col, Button, Form, Input } from "antd"
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -21,6 +21,7 @@ function IndexPage() {
 
   function handleStateChange(e) {
     if (!e.includes("All States")) {
+      setCurrState(e)
       const tempStates = []
       emails.forEach(element => {
         if (element.state === e) {
@@ -71,6 +72,7 @@ function IndexPage() {
   //const [cities, setCities] = useState([])
   const [topics, setTopics] = useState([])
   const [shareURL, setShareURL] = useState(null)
+  const [currState, setCurrState] = useState("All States")
 
   useEffect(() => {
     // Since firebase runs async, only update state if the app is mounted
@@ -117,7 +119,7 @@ function IndexPage() {
           const myData = allEmails
           .sort((a, b) => a.title.localeCompare(b.title))
           setFiltered(myData)
-          setFiltered(allEmails)
+          // setFiltered(allEmails)
           setEmails(allEmails)
         })
     }
@@ -135,6 +137,17 @@ function IndexPage() {
         copy += item + "\r\n"
       })
     return copy
+  }
+
+  function templateFilterOnChange(value) {
+    let searchVals = []
+    console.log(value)
+    emails.forEach(email => {
+      if ((email.state === currState || currState === "All States") && (email.title.includes(value.titleSearch) || value.titleSearch === "")) {
+        searchVals.push(email);
+      }
+    });
+    setFiltered(searchVals);
   }
 
   return (
@@ -200,6 +213,22 @@ function IndexPage() {
                   ))}
                 </Select>
               </div>
+              <div>
+              <Form
+                name="basic"
+                initialValues={{
+                  remember: true,
+                }}
+                onFinish={templateFilterOnChange}
+              >
+                <Form.Item
+                  label="Search By Title"
+                  name="titleSearch"
+                >
+                  <Input />
+                </Form.Item>
+                </Form>
+                </div>
               <div>
                 <Collapse style={{ margin: 20 }}>
                   {filtered.map((item, index) => (
