@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from "react"
 import "./index.css"
-import { Select, Collapse, Spin, message, Row, Col, Button, Form, Input } from "antd"
+import {
+  Select,
+  Collapse,
+  Spin,
+  message,
+  Row,
+  Col,
+  Button,
+  Form,
+  Input,
+} from "antd"
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -116,15 +126,16 @@ function IndexPage() {
           setStates([...new Set(currStates)])
           //setCities(currCities)
           setTopics([...new Set(currTopics)])
-          const myData = allEmails
-          .sort((a, b) => a.title.localeCompare(b.title))
+          const myData = allEmails.sort((a, b) =>
+            a.title.localeCompare(b.title)
+          )
           setFiltered(myData)
           // setFiltered(allEmails)
           setEmails(allEmails)
         })
     }
     getEmails()
-    
+
     setLoading(false)
   }, [])
 
@@ -143,12 +154,14 @@ function IndexPage() {
     let searchVals = []
     const inputVal = value.target.value.toLowerCase()
     emails.forEach(email => {
-      if ((email.state === currState || currState === "All States") 
-          && (email.title.toLowerCase().includes(inputVal) || inputVal === "")) {
-        searchVals.push(email);
+      if (
+        (email.state === currState || currState === "All States") &&
+        (email.title.toLowerCase().includes(inputVal) || inputVal === "")
+      ) {
+        searchVals.push(email)
       }
-    });
-    setFiltered(searchVals);
+    })
+    setFiltered(searchVals)
   }
 
   function templateFilterOnChange(value) {
@@ -219,14 +232,15 @@ function IndexPage() {
                     </Select.Option>
                   ))}
                 </Select>
-                <Input
+                  <Input
                     placeholder="Search by Title"
                     onPressEnter={value => templateFilterOnEnter(value)}
                     onChange={value => templateFilterOnChange(value)}
-                    style={{ width: "20%", marginLeft: "10%" }}
+                    style={{ width: "20%" }}
                     allowClear={true}
-                />
+                  />
               </div>
+              
               {/* <div>
               <Form
                 name="basic"
