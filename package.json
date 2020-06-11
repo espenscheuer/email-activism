@@ -23,7 +23,9 @@
     "react-country-region-selector": "^2.1.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^6.0.0",
-    "react-recaptcha-google": "^1.1.1"
+    "react-recaptcha-google": "^1.1.1",
+    "react-share": "^4.2.0",
+    "tinyurl": "^1.1.6"
   },
   "devDependencies": {
     "less-loader": "^6.1.0",
