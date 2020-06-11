@@ -159,8 +159,7 @@ function SubmitPage() {
       verified: false,
       shareURL: copy.shareURL,
     }
-    getTinyURL(copy).then(res => 
-      { 
+    getTinyURL(copy).then(res => { 
       data['shareURL'] = res
       // data.shareURL = shareURL
       firebase
@@ -175,7 +174,10 @@ function SubmitPage() {
           setSubmitError(true)
         })
       setLoading(false)
-      });
+    })
+    .catch(e => {
+      setSubmitError(true)
+    });
   }
 
   function handleCancel() {
