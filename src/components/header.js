@@ -1,12 +1,11 @@
 import { navigate } from "gatsby"
-import React, { useState } from "react"
-import { PageHeader, Button, Row, Col, Typography, Layout, Menu } from "antd"
+import React from "react"
+import { PageHeader, Button, Row, Col, Typography, Layout } from "antd"
 import "antd/dist/antd.css"
 import "../pages/index.css"
 
 function Header({ name }) {
   const { Title } = Typography
-  const { Sider } = Layout
   const title = (
     <div
       style={{ cursor: "pointer" }}

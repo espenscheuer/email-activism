@@ -1,55 +1,27 @@
 import React, { useState } from "react"
 import { ReCaptcha } from "react-recaptcha-google"
 // import { Link } from "gatsby"
-import { Form, Row, Col, Input, message, Button, Select, Modal, Result } from "antd"
+import {
+  Form,
+  Row,
+  Col,
+  Input,
+  message,
+  Button,
+  Select,
+  Modal,
+  Result,
+} from "antd"
 import firebase from "gatsby-plugin-firebase"
 import "./index.css"
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons"
 import {
   EmailShareButton,
   FacebookShareButton,
-  InstapaperShareButton,
-  LineShareButton,
-  LinkedinShareButton,
-  LivejournalShareButton,
-  MailruShareButton,
-  OKShareButton,
-  PinterestShareButton,
-  PocketShareButton,
-  RedditShareButton,
-  TelegramShareButton,
-  TumblrShareButton,
   TwitterShareButton,
-  ViberShareButton,
-  VKShareButton,
-  WhatsappShareButton,
-  WorkplaceShareButton
-} from "react-share";
+} from "react-share"
 
-import {
-  EmailIcon,
-  FacebookIcon,
-  FacebookMessengerIcon,
-  InstapaperIcon,
-  LineIcon,
-  LinkedinIcon,
-  LivejournalIcon,
-  MailruIcon,
-  OKIcon,
-  PinterestIcon,
-  PocketIcon,
-  RedditIcon,
-  TelegramIcon,
-  TumblrIcon,
-  TwitterIcon,
-  ViberIcon,
-  VKIcon,
-  WeiboIcon,
-  WhatsappIcon,
-  WorkplaceIcon
-} from "react-share";
-
-import { CopyOutlined, ConsoleSqlOutlined } from "@ant-design/icons"
+import { EmailIcon, FacebookIcon, TwitterIcon } from "react-share"
 
 import SEO from "../components/seo"
 import Header from "../components/header"
@@ -204,25 +176,26 @@ function SubmitPage() {
       verified: false,
       shareURL: copy.shareURL,
     }
-    getTinyURL(copy).then(res => { 
-      data['shareURL'] = res
-      firebase
-        .firestore()
-        .collection("data")
-        .add(data)
-        .then(() => {
-          setShareURL(res)
-          setSubmitSuccess(true)
-          console.log("success")
-        })
-        .catch(e => {
-          setSubmitError(true)
-        })
-      setLoading(false)
-    })
-    .catch(e => {
-      setSubmitError(true)
-    });
+    getTinyURL(copy)
+      .then(res => {
+        data["shareURL"] = res
+        firebase
+          .firestore()
+          .collection("data")
+          .add(data)
+          .then(() => {
+            setShareURL(res)
+            setSubmitSuccess(true)
+            console.log("success")
+          })
+          .catch(e => {
+            setSubmitError(true)
+          })
+        setLoading(false)
+      })
+      .catch(e => {
+        setSubmitError(true)
+      })
   }
 
   function handleCancel() {
@@ -244,14 +217,13 @@ function SubmitPage() {
   }
 
   function getTinyURL(item) {
-    var TinyURL = require('tinyurl');
-    const result = TinyURL.shorten(`mailto:${item.recipientEmail}?cc=${
-      item.ccEmails
-    }&subject=${item.subject}&body=${encodeURIComponent(
-      item.body
-      
-    )}`)
-    return result;
+    var TinyURL = require("tinyurl")
+    const result = TinyURL.shorten(
+      `mailto:${item.recipientEmail}?cc=${item.ccEmails}&subject=${
+        item.subject
+      }&body=${encodeURIComponent(item.body)}`
+    )
+    return result
   }
 
   return (
@@ -267,35 +239,29 @@ function SubmitPage() {
               title="Thank you! Your template has been submitted for review."
               subTitle="You can share the new mailto link that has been created for your template while your submission is under review for upload to our site. We'll notify you via the provided email address upon approval."
               extra={[
-                <div style={{ textAlign: "center", paddingBottom: 10 }}> 
-                <TwitterShareButton url={shareURL}>
-                  <TwitterIcon
-                  size={32}
-                  round />
-                </TwitterShareButton>
-                <FacebookShareButton url={shareURL} quote={shareURL}>
-                  <FacebookIcon
-                  size={32}
-                  round />
-                </FacebookShareButton>
-                <EmailShareButton url={shareURL}>
-                  <EmailIcon
-                  size={32}
-                  round />
-                </EmailShareButton>
-                <Button style={{bottom: 10}} onClick={() => {
-                  navigator.clipboard.writeText(shareURL)
-                  message.success("Link copied!")
-                }}>
-                Copy Link
-                </Button>
-              </div>,
                 <Button key="back" onClick={() => navigate("/")}>
                   Back to Home
                 </Button>,
                 <Button key="submit" onClick={() => handleCancel()}>
                   Submit Another Template
                 </Button>,
+                <div style={{ textAlign: "center", paddingTop: 10 }}>
+                <Button
+                  style={{ bottom: 10, marginRight : 5 }}
+                  onClick={() => {
+                    navigator.clipboard.writeText(shareURL)
+                    message.success("Link copied!")
+                  }}
+                >
+                  Copy Link
+                </Button>
+                <TwitterShareButton url={shareURL} style = {{marginRight : 5}}>
+                  <TwitterIcon size={32} round />
+                </TwitterShareButton>
+                <FacebookShareButton url={shareURL} quote={shareURL}>
+                  <FacebookIcon size={32} round />
+                </FacebookShareButton>
+              </div>,
               ]}
             />
           )}
