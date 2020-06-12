@@ -184,8 +184,8 @@ function IndexPage() {
                   {" "}
                   Take action by contacting government officials. Use our
                   community-sourced collection of email templates to demand
-                  change. Do your part in the fight against institutional racism
-                  in the United States.{" "}
+                  change. If you would like to contribute an email template,
+                  click the submit tab in the upper right.{" "}
                 </p>
                 <Select
                   mode="single"
