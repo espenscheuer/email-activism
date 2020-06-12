@@ -1,27 +1,11 @@
 import React, { useState } from "react"
-import { ReCaptcha } from "react-recaptcha-google"
-// import { Link } from "gatsby"
-import {
-  Form,
-  Row,
-  Col,
-  Input,
-  message,
-  Button,
-  Select,
-  Modal,
-  Result,
-} from "antd"
+import { Form, Row, Col, Input, message, Button, Select, Result } from "antd"
 import firebase from "gatsby-plugin-firebase"
 import "./index.css"
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons"
-import {
-  EmailShareButton,
-  FacebookShareButton,
-  TwitterShareButton,
-} from "react-share"
+import { FacebookShareButton, TwitterShareButton } from "react-share"
 
-import { EmailIcon, FacebookIcon, TwitterIcon } from "react-share"
+import { FacebookIcon, TwitterIcon } from "react-share"
 
 import SEO from "../components/seo"
 import Header from "../components/header"
@@ -30,22 +14,15 @@ import { navigate } from "@reach/router"
 function SubmitPage() {
   const { TextArea } = Input
   const layout = {
-    labelCol: { span: 5 },
-    wrapperCol: { span: 21 },
+    labelCol: { span: 0 },
+    wrapperCol: { span: 24 },
   }
-  const tailLayout = {
-    wrapperCol: {
-      lg: { span: 21, offset: 5 },
-      sm: { span: 21, offset: 0 },
-    },
-  }
-
-  const formItemLayout = layout
-  const formItemLayoutWithOutLabel = {
-    wrapperCol: {
-      xs: { span: 24, offset: 0 },
-      sm: { span: 19, offset: 5 },
-    },
+  function label(text) {
+    return (
+      <p>
+        <b>{text}</b>
+      </p>
+    )
   }
 
   const emailPlaceholders = [
@@ -150,16 +127,16 @@ function SubmitPage() {
       cc = cc.replace(regEx, ", ")
       console.log(cc)
     }
-    {
-      copy.body.split("\n").map(function (item, key) {
-        return (
-          <span key={key}>
-            {item}
-            <br />
-          </span>
-        )
-      })
-    }
+
+    copy.body.split("\n").map(function (item, key) {
+      return (
+        <span key={key}>
+          {item}
+          <br />
+        </span>
+      )
+    })
+
     copy.shareURL = "didn't get overwritten"
     const data = {
       title: copy.title,
@@ -205,19 +182,6 @@ function SubmitPage() {
     setSubmitError(false)
   }
 
-  function handleOK() {
-    setSubmitSuccess(false)
-    setSubmitError(false)
-    navigate("/")
-  }
-
-  function error() {
-    Modal.error({
-      content:
-        "Sorry, an error occurred. Your template could not be submitted.",
-    })
-  }
-
   function getTinyURL(item) {
     var TinyURL = require("tinyurl")
     const result = TinyURL.shorten(
@@ -248,22 +212,22 @@ function SubmitPage() {
                   Submit Another Template
                 </Button>,
                 <div style={{ textAlign: "center", paddingTop: 10 }}>
-                <Button
-                  style={{ bottom: 10, marginRight : 5 }}
-                  onClick={() => {
-                    navigator.clipboard.writeText(shareURL)
-                    message.success("Link copied!")
-                  }}
-                >
-                  Copy Link
-                </Button>
-                <TwitterShareButton url={shareURL} style = {{marginRight : 5}}>
-                  <TwitterIcon size={32} round />
-                </TwitterShareButton>
-                <FacebookShareButton url={shareURL} quote={shareURL}>
-                  <FacebookIcon size={32} round />
-                </FacebookShareButton>
-              </div>,
+                  <Button
+                    style={{ bottom: 10, marginRight: 5 }}
+                    onClick={() => {
+                      navigator.clipboard.writeText(shareURL)
+                      message.success("Link copied!")
+                    }}
+                  >
+                    Copy Link
+                  </Button>
+                  <TwitterShareButton url={shareURL} style={{ marginRight: 5 }}>
+                    <TwitterIcon size={32} round />
+                  </TwitterShareButton>
+                  <FacebookShareButton url={shareURL} quote={shareURL}>
+                    <FacebookIcon size={32} round />
+                  </FacebookShareButton>
+                </div>,
               ]}
             />
           )}
@@ -300,8 +264,8 @@ function SubmitPage() {
                 }}
                 onFinish={onFinish}
               >
+                {label("Template Title")}
                 <Form.Item
-                  label="Template Title"
                   name="title"
                   rules={[
                     {
@@ -312,8 +276,8 @@ function SubmitPage() {
                 >
                   <Input />
                 </Form.Item>
+                {label("One Line Description")}
                 <Form.Item
-                  label="One Line Description"
                   name="description"
                   rules={[
                     {
@@ -325,56 +289,46 @@ function SubmitPage() {
                 >
                   <Input />
                 </Form.Item>
+                <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
+                  <div style = {{width: "49%"}}>
+                    {label("State")}
+                    <Form.Item
+                      name="state"
+                      rules={[
+                        {
+                          message:
+                            "Please enter the relavent U.S. State or All",
+                        },
+                      ]}
+                    >
+                      <Select defaultValue="All States">
+                        {states.map(item => (
+                          <Select.Option value={item}>{item}</Select.Option>
+                        ))}
+                      </Select>
+                    </Form.Item>
+                  </div>
+                  <div style = {{width: "4%"}}/>
+                  <div style = {{width: "48%"}}>
+                    {label("Topic")}
+                    <Form.Item
+                      name="topic"
+                      rules={[
+                        {
+                          message: "Please select the relavent topic",
+                        },
+                      ]}
+                    >
+                      <Select defaultValue="All Topics">
+                        {topics.map(item => (
+                          <Select.Option value={item}>{item}</Select.Option>
+                        ))}
+                      </Select>
+                    </Form.Item>
+                  </div>
+                </div>
+                {label("Creator Name")}
                 <Form.Item
-                  label="State"
-                  name="state"
-                  rules={[
-                    {
-                      message: "Please enter the relavent U.S. State or All",
-                    },
-                  ]}
-                >
-                  <Select defaultValue="All States">
-                    {states.map(item => (
-                      <Select.Option value={item}>{item}</Select.Option>
-                    ))}
-                  </Select>
-                </Form.Item>
-                {/*
-              <Form.Item
-                label="City"
-                name="city"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please select the relavent city or All",
-                  },
-                ]}
-              >
-                <Select>
-                  {cities.map(item => (
-                    <Select.Option value={item}>{item}</Select.Option>
-                  ))}
-                </Select>
-              </Form.Item>
-            */}
-                <Form.Item
-                  label="Topic"
-                  name="topic"
-                  rules={[
-                    {
-                      message: "Please select the relavent topic",
-                    },
-                  ]}
-                >
-                  <Select defaultValue="All Topics">
-                    {topics.map(item => (
-                      <Select.Option value={item}>{item}</Select.Option>
-                    ))}
-                  </Select>
-                </Form.Item>
-                <Form.Item
-                  label="Creator Name"
                   name="creatorName"
                   rules={[
                     {
@@ -384,8 +338,8 @@ function SubmitPage() {
                 >
                   <Input />
                 </Form.Item>
+                {label("Your Email")}
                 <Form.Item
-                  label="Your Email"
                   name="creatorEmail"
                   rules={[
                     {
@@ -397,8 +351,8 @@ function SubmitPage() {
                 >
                   <Input />
                 </Form.Item>
+                {label("Recipient Name")}
                 <Form.Item
-                  label="Recipient Name"
                   name="recipient"
                   rules={[
                     {
@@ -409,8 +363,8 @@ function SubmitPage() {
                 >
                   <Input />
                 </Form.Item>
+                {label("Recipient Email")}
                 <Form.Item
-                  label="Recipient Email"
                   name="recipientEmail"
                   rules={[
                     {
@@ -422,16 +376,14 @@ function SubmitPage() {
                 >
                   <Input />
                 </Form.Item>
+                {label("CC")}
                 <Form.List name="CC">
                   {(fields, { add, remove }) => {
                     return (
                       <div>
                         {fields.map((field, index) => (
                           <Form.Item
-                            {...(index === 0
-                              ? formItemLayout
-                              : formItemLayoutWithOutLabel)}
-                            label={index === 0 ? "CC:" : ""}
+                            {...layout}
                             required={false}
                             key={field.key}
                           >
@@ -467,7 +419,7 @@ function SubmitPage() {
                             />
                           </Form.Item>
                         ))}
-                        <Form.Item {...tailLayout}>
+                        <Form.Item {...layout}>
                           <Button
                             type="dashed"
                             onClick={() => {
@@ -482,19 +434,8 @@ function SubmitPage() {
                     )
                   }}
                 </Form.List>
-                {/*<Form.Item
-                label="CC:"
-                name="ccEmails"
-                rules={[
-                  {
-                    message: "Please input a valid email!",
-                  },
-                ]}
-              >
-              <Input placeholder="alice@gmail.com, bob@gmail.com"/>
-            </Form.Item>*/}
+                {label("Email Subject")}
                 <Form.Item
-                  label="Email Subject"
                   name="subject"
                   rules={[
                     {
@@ -505,8 +446,8 @@ function SubmitPage() {
                 >
                   <Input />
                 </Form.Item>
+                {label("Email Body")}
                 <Form.Item
-                  label="Email Body"
                   name="body"
                   rules={[
                     {
@@ -517,8 +458,7 @@ function SubmitPage() {
                 >
                   <TextArea style={{ whitespace: "pre-line" }} rows={4} />
                 </Form.Item>
-
-                <Form.Item {...tailLayout}>
+                <Form.Item {...layout}>
                   <Button
                     type="primary"
                     loading={loading}
@@ -539,3 +479,22 @@ function SubmitPage() {
 }
 
 export default SubmitPage
+
+/*
+              <Form.Item
+                label="City"
+                name="city"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please select the relavent city or All",
+                  },
+                ]}
+              >
+                <Select>
+                  {cities.map(item => (
+                    <Select.Option value={item}>{item}</Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            */
