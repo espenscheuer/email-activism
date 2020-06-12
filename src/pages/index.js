@@ -1,22 +1,9 @@
 import React, { useState, useEffect } from "react"
 import "./index.css"
-import {
-  Select,
-  Collapse,
-  Spin,
-  message,
-  Row,
-  Col,
-  Button,
-  Input,
-} from "antd"
-import {
-  EmailShareButton,
-  FacebookShareButton,
-  TwitterShareButton,
-} from "react-share"
+import { Select, Collapse, Spin, message, Row, Col, Button, Input } from "antd"
+import { FacebookShareButton, TwitterShareButton } from "react-share"
 
-import { EmailIcon, FacebookIcon, TwitterIcon } from "react-share"
+import { FacebookIcon, TwitterIcon } from "react-share"
 
 import { CopyOutlined } from "@ant-design/icons"
 
@@ -27,7 +14,6 @@ import firebase from "gatsby-plugin-firebase"
 
 function IndexPage() {
   const { Panel } = Collapse
-  const { Search } = Input;
 
   function handleStateChange(e) {
     setCurrState(e)
@@ -81,7 +67,6 @@ function IndexPage() {
   const [states, setStates] = useState([])
   //const [cities, setCities] = useState([])
   const [topics, setTopics] = useState([])
-  const [shareURL, setShareURL] = useState(null)
   const [currState, setCurrState] = useState("All States")
 
   useEffect(() => {
@@ -232,13 +217,13 @@ function IndexPage() {
                     </Select.Option>
                   ))}
                 </Select>
-                  <Input
-                    placeholder="Search by Title"
-                    onPressEnter={value => templateFilterOnEnter(value)}
-                    onChange={value => templateFilterOnChange(value)}
-                    style={{ width: "20%" }}
-                    allowClear={true}
-                  />
+                <Input
+                  placeholder="Search by Title"
+                  onPressEnter={value => templateFilterOnEnter(value)}
+                  onChange={value => templateFilterOnChange(value)}
+                  style={{ width: "20%" }}
+                  allowClear={true}
+                />
               </div>
               <div>
                 <Collapse style={{ margin: 20 }}>
@@ -253,7 +238,6 @@ function IndexPage() {
                           {item.description}
                         </div>
                       }
-                      key={index}
                     >
                       <div>
                         <p>
