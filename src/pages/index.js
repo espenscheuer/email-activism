@@ -27,7 +27,7 @@ import firebase from "gatsby-plugin-firebase"
 
 function IndexPage() {
   const { Panel } = Collapse
-  const { Search } = Input;
+  const increment = firebase.firestore.FieldValue.increment(1);
 
   function handleStateChange(e) {
     setCurrState(e)
@@ -97,7 +97,7 @@ function IndexPage() {
           const allEmails = []
           querySnapshot.forEach(email => {
             allEmails.push({
-              key: email.data().title,
+              key: email.id,
               title: email.data().title,
               author: email.data().authorName,
               recipient: email.data().recipient,
@@ -110,6 +110,7 @@ function IndexPage() {
               topic: email.data().topic,
               ccEmails: email.data().ccEmails,
               shareURL: email.data().shareURL,
+              count: email.data().count,
             })
           })
 
@@ -168,6 +169,22 @@ function IndexPage() {
     if (value.target.value === "") {
       handleStateChange(currState)
     }
+  }
+
+  function updateCount(item) {
+    firebase
+    .firestore()
+    .collection("data")
+    .doc(item.key)
+    .update({
+      count: increment,
+    })
+    .then(
+      console.log("email use count updated")
+    )
+    .catch((e) => {
+      console.log("error updating email use count")
+    });
   }
 
   return (
@@ -331,7 +348,7 @@ function IndexPage() {
                               item.body
                             )}`}
                           >
-                            <Button type="primary">Send Email</Button>
+                            <Button type="primary" onClick={() => updateCount(item)}>Send Email</Button>
                           </a>
                           {item.shareURL && (
                             <div

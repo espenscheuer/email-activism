@@ -175,7 +175,9 @@ function SubmitPage() {
       body: copy.body,
       verified: false,
       shareURL: copy.shareURL,
+      count: 0,
     }
+
     getTinyURL(copy)
       .then(res => {
         data["shareURL"] = res
